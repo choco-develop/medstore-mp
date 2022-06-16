@@ -73,15 +73,6 @@ This should open the page in your localhost on port 3000. then you'd be able to 
 - GitHub: [@Bushra Mustofa](https://github.com/bushmusi)
 - GitHub: [@Amanual Asfaw](https://github.com/amanuelasfaw)
 
-## Show your support
-
-Give a ⭐️ if you like this project!
-
-## Acknowledgments
-
-- Microverse
-- My coding partners(@usorfaitheloho)
-
 ## 📝 License
 
 This project is [MIT](./MIT.md) licensed.
