@@ -69,7 +69,7 @@ This should open the page in your localhost on port 3000. then you'd be able to 
 
 👤 **Contributers**
 
-
+- Github: [@Cherenet Mequanint](https://github.com/Chernet-Mequanent)
 - GitHub: [@Bushra Mustofa](https://github.com/bushmusi)
 - GitHub: [@Amanual Asfaw](https://github.com/amanuelasfaw)
 
