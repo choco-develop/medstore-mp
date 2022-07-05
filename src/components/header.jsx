@@ -3,12 +3,12 @@ import React from 'react';
 export default function Header() {
   return (
     <nav className="flex flex-col w-full border">
-      <div className="basis-1/3 flex justify-between border p-3">
+      <div className="basis-1/4 flex justify-between border">
         <div>
-          <i>Ethiopian Medical Material Portal</i>
+          <p>Ethiopian Medical Material Portal</p>
         </div>
         <div>
-          <i>Login</i>
+          <p>Login</p>
         </div>
       </div>
       <div className="basis-auto flex">
