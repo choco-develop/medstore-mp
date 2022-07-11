@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: DancingScript;
+  src: local('DancingScript'), url(../public/assets/font/dancing/static/DancingScript-SemiBold.ttf);
+}
+
+p#top-header {
+  font-family: 'DancingScript', cursive;
+  font-weight: 400;
+}
+
+div.mini-nav {
+  background-color: #6daeb1;
+  color: white;
+}
+
+img.nav-logo {
+  height: 50px;
+}
