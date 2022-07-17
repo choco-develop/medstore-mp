@@ -7,6 +7,11 @@
   src: local('DancingScript'), url(../public/assets/font/dancing/static/DancingScript-SemiBold.ttf);
 }
 
+@font-face {
+  font-family: Lato;
+  src: local('Lato'), url(../public/assets/font/Anton/Anton-Regular.ttf);
+}
+
 p#top-header {
   font-family: 'DancingScript', cursive;
   font-weight: 400;
