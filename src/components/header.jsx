@@ -5,7 +5,7 @@ export default function Header() {
   const [search, setSearch] = useState('');
   return (
     <nav className="flex flex-col w-full bg-main">
-      <div className="flex justify-between p-2 mini-nav">
+      <div className="flex justify-between p-2 mini-nav content-center">
         <div>
           <p id="top-header">Ethiopian Medical Material Portal</p>
         </div>
