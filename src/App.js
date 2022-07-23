@@ -1,7 +1,7 @@
 import Header from './components/header';
 import Slider from './components/slider';
 import Category from './components/category';
-// import SampleProduct from './components/sample_product';
+import SampleProduct from './components/sample_product';
 // import ClientComment from './components/client';
 // import Footer from './components/footer';
 
@@ -11,8 +11,8 @@ function App() {
       <Header />
       <Slider />
       <Category />
-      {/* <SampleProduct />
-      <ClientComment />
+      <SampleProduct />
+      {/* <ClientComment />
       <Footer /> */}
     </div>
   );
