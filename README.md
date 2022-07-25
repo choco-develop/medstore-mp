@@ -6,7 +6,7 @@
 
 ## Live Demo
 
-- [Live link comming soon](localhost:3000)
+- [Live link](https://medstoret.netlify.app)
 
 
 ### Features implemented so far are:
