@@ -12,13 +12,13 @@
   src: local('Lato'), url(../public/assets/font/Anton/Anton-Regular.ttf);
 }
 
-p#top-header {
+.customiseFont {
   font-family: 'DancingScript', cursive;
   font-weight: 400;
 }
 
 div.mini-nav {
-  background-color: #6daeb1;
+  /* background-color: #6daeb1; */
   color: white;
 }
 
@@ -29,5 +29,11 @@ img.nav-logo {
 .appName {
   font-family: 'Lato', sans-serif;
   font-weight: 900;
+  color: white;
+}
+
+.navItems {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
   color: white;
 }

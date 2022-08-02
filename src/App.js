@@ -1,8 +1,8 @@
-import Header from './components/header';
+import Header from './components/navigation/header';
 import Slider from './components/slider';
-import Category from './components/category';
+import Category from './components/category-matrix/category';
 import SampleProduct from './components/sample_product';
-import ClientComment from './components/client';
+import ClientComment from './components/client-testimonals/client';
 import Footer from './components/footer';
 import AboutUs from './components/AboutUs';
 
