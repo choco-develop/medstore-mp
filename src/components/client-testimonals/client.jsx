@@ -5,11 +5,11 @@ export default function client() {
     <>
       <div className="relative flex py-5 items-center">
         <div className="flex-grow border-t border-gray-400" />
-        <span className="flex-shrink mx-2 text-gray-400">Clients</span>
+        <span className="flex-shrink mx-2 text-gray-900">Clients</span>
         <div className="flex-grow border-t border-gray-400" />
       </div>
 
-      <div className="flex p-3 gap-3 mb-10 justify-center">
+      <div className="flex p-3 gap-3 mb-10 justify-center bg-white">
         <div className="flex flex-col gap-2 w-64">
           <div className="relative flex justify-center">
             <img className="rounded-full border border-gray-100 shadow-sm" src="https://randomuser.me/api/portraits/women/81.jpg" alt="user" />

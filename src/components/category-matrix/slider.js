@@ -8,7 +8,7 @@ export function LeftSlide() {
                    justify-center items-center z-50"
     >
       <button type="button">
-        <FaChevronLeft color="#1A8BB5" size={30} />
+        <FaChevronLeft color="#1A8BB5" style={{ height: '190px' }} />
       </button>
     </div>
   );

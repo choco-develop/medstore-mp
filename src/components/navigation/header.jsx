@@ -57,7 +57,7 @@ export default function Header() {
               <a href="http://localhost:8000" className="hover:text-main">Tender</a>
             </li>
             <li className="navItems">
-              <a href="http://localhost:8000 " className="flex items-center gap-1 hover:text-main">
+              <a href="http://localhost:3000/login" className="flex items-center gap-1 hover:text-main">
                 <MdLogin />
                 <p>Login</p>
               </a>

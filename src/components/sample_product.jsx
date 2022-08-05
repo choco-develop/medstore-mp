@@ -3,7 +3,7 @@ import React from 'react';
 export default function sampleProducts() {
   return (
     <>
-      <div id="topProducts" className="flex flex-col p-2 border mx-10 xs:mx-2 my-5 shadow-sm px-5 py-5 ">
+      <div id="topProducts" className="flex flex-col p-2 border mx-10 xs:mx-2 my-5 shadow-sm px-5 py-5 bg-white">
         <div className="mb-3">
           <h3>Top Products</h3>
         </div>
@@ -65,10 +65,10 @@ export default function sampleProducts() {
       </div>
 
       <div className="flex justify-center m-3">
-        <button type="button" className="border px-5 py-3 hover:rounded-md hover:bg-gray-100"><h2>See more</h2></button>
+        <button type="button" className="border px-5 py-3 hover:rounded-md hover:bg-gray-100 bg-white"><h2>See more</h2></button>
       </div>
 
-      <div id="recentProducts" className="flex flex-col p-2 border mx-10 shadow-sm px-5 py-5 xs:hidden">
+      <div id="recentProducts" className="flex flex-col p-2 border mx-10 shadow-sm px-5 py-5 xs:hidden bg-white">
         <div className="mb-3">
           <h3>Recent Products</h3>
         </div>
@@ -130,7 +130,7 @@ export default function sampleProducts() {
       </div>
 
       <div className="flex justify-center m-3 xs:hidden">
-        <button type="button" className="border px-5 py-3 hover:rounded-md hover:bg-gray-100"><h2>See more</h2></button>
+        <button type="button" className="border px-5 py-3 hover:rounded-md hover:bg-gray-100 bg-white"><h2>See more</h2></button>
       </div>
 
     </>
