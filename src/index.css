@@ -12,6 +12,10 @@
   src: local('Lato'), url(../public/assets/font/Anton/Anton-Regular.ttf);
 }
 
+body {
+  background-color: whitesmoke;
+}
+
 .customiseFont {
   font-family: 'DancingScript', cursive;
   font-weight: 400;
