@@ -3,13 +3,11 @@ import React from 'react';
 export default function client() {
   return (
     <>
-      <div className="relative flex py-5 items-center">
-        <div className="flex-grow border-t border-gray-400" />
-        <span className="flex-shrink mx-2 text-gray-900">Clients</span>
-        <div className="flex-grow border-t border-gray-400" />
+      <div className="relative flex py-5 px-5 justify-center">
+        <h2 className="text-gray-700 text-lg font-bold">Clients</h2>
       </div>
 
-      <div className="flex p-3 gap-3 mb-10 justify-center bg-white">
+      <div className="flex justify-center p-2 border mx-10 xs:mx-2 my-5 shadow-sm px-5 py-5 bg-white">
         <div className="flex flex-col gap-2 w-64">
           <div className="relative flex justify-center">
             <img className="rounded-full border border-gray-100 shadow-sm" src="https://randomuser.me/api/portraits/women/81.jpg" alt="user" />
