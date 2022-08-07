@@ -1,13 +1,14 @@
 import React from 'react';
 import Slider from 'react-slick';
-import { LeftSlide, RightSide } from './slider'; // eslint-disable-line
 import { SamplePrevArrow, SampleNextArrow } from './slider-slick';
-import CategoryOne from '../../assets/images/category/aid.png';
-import CategoryTwo from '../../assets/images/category/measure.png';
+// import CategoryOne from '../../assets/images/category/aid.png';
+// import CategoryTwo from '../../assets/images/category/measure.png';
+import CatList from './category-list';
 
 export default function category() {
   const catMax = [];
-  for (let i = 0; i < 32; i += 1) {
+  console.log(CatList);
+  for (let i = 0; i < CatList.length; i += 1) {
     catMax.push(
       <div
         className="border flex flex-col
@@ -16,9 +17,13 @@ export default function category() {
         key={i}
       >
         <div className="flex flex-col hover:border-2">
-          <img src={i % 2 === 0 ? CategoryOne : CategoryTwo} alt="catagory name" className="w-3/4" />
-          <div className="p-1 flex w-full justify-center">
-            <h3 className="text-[#364954] font-bold">{i % 2 === 0 ? 'Aid' : 'Measurement'}</h3>
+          <div className="relative">
+            <img src={CatList[i].image_url} alt="catagory name" className="" loading="lazy" />
+            <div className="p-1 flex w-full justify-center absolute bottom-5">
+              <h3 className="text-[#364954] font-bold">
+                {CatList[i].name}
+              </h3>
+            </div>
           </div>
         </div>
       </div>,
@@ -39,8 +44,6 @@ export default function category() {
 
   return (
     <>
-      {/* <LeftSlide />
-      <RightSide /> */}
       <div className="flex justify-center text-gray-900  mt-10">
         <h1 className="font-bold font-italic">New and Used Medical Equipment</h1>
       </div>
