@@ -16,10 +16,10 @@ export default function Header() {
       </div>
       <div className="flex p-2 flex-wrap gap-y-2 bg-gradient-to-r from-main via-purple-500 to-temp">
         <div className="flex gap-2">
-          <div style={{ width: '125px' }} className="relative">
-            <div style={{ height: '100px' }} className="w-full absolute top-0 left-0 z-50 bg-main rounded-full flex justify-center">
-              <div className="w-[85%] h-[85%] self-center bg-white rounded-full flex justify-center">
-                <img src={MainLogo} alt="..." className="w-3/4 self-center" />
+          <div style={{ width: '100px' }} className="relative">
+            <div style={{ height: '110px', width: '110px' }} className="w-full absolute top-0 left-0 z-50 bg-main rounded-full flex justify-center">
+              <div className="w-[90px] h-[90px] self-center bg-white rounded-full flex justify-center">
+                <img src={MainLogo} alt="..." className="w-[80px] self-center" />
               </div>
             </div>
           </div>
