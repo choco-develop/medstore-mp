@@ -15,7 +15,7 @@ export function SampleNextArrow(props) { /* eslint-disable */
           alignItems: 'center',
           paddingLeft: '10px',
           position: 'absolute',
-          right: '-25px',
+          right: '0px',
           zIndex: 50,
         }
       }
