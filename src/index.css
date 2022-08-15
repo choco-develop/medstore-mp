@@ -17,7 +17,7 @@ body {
 }
 
 .customiseFont {
-  font-family: 'DancingScript', cursive;
+  font-family: 'Lato', cursive;
   font-weight: 400;
 }
 
@@ -38,6 +38,6 @@ img.nav-logo {
 
 .navItems {
   font-family: 'Lato', sans-serif;
-  font-weight: 700;
+  font-weight: 500;
   color: white;
 }
