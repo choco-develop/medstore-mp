@@ -7,20 +7,19 @@ import CatList from './category-list';
 
 export default function category() {
   const catMax = [];
-  console.log(CatList);
   for (let i = 0; i < CatList.length; i += 1) {
     catMax.push(
       <div
         className="border flex flex-col
                       hover:shadow-b-md z-0
-                      "
+                      xs:h-40"
         key={i}
       >
-        <div className="flex flex-col hover:border-2">
-          <div className="relative">
-            <img src={CatList[i].image_url} alt="catagory name" className="" loading="lazy" />
+        <div className="flex flex-col hover:border-2 xs:h-40">
+          <div className="relative xs:h-40 flex justify-center">
+            <img src={CatList[i].image_url} alt="catagory name" className="object-scale-down  xs:max-h-36" loading="lazy" />
             <div className="p-1 flex w-full justify-center absolute bottom-5">
-              <h3 className="text-[#364954] font-bold">
+              <h3 className="text-[#364954] font-bold font-serif">
                 {CatList[i].name}
               </h3>
             </div>
@@ -31,7 +30,7 @@ export default function category() {
   }
 
   const settings = {
-    className: 'grid grid-cols-6 grid-rows-2 mx-10 mb-2 p-5 xs:hidden bg-slate-200 relative',
+    className: 'grid grid-cols-6 grid-rows-2 mx-10 xs:mx-3 xs:auto-rows-max mb-2 p-5 xs:hidden bg-white relative',
     dots: true,
     infinite: true,
     speed: 500,
@@ -40,12 +39,45 @@ export default function category() {
     rows: 2,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 360,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
-    <>
+    <div className="px-5">
       <div className="flex justify-center text-gray-900  mt-10">
-        <h1 className="font-bold font-italic">New and Used Medical Equipment</h1>
+        <h1 className="font-bold font-italic font-serif">New and Used Medical Equipment</h1>
       </div>
       <Slider {...settings}> {/* eslint-disable-line */}
         { catMax }
@@ -55,6 +87,6 @@ export default function category() {
           See All Category
         </button>
       </div>
-    </>
+    </div>
   );
 }
