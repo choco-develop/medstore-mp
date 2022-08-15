@@ -8,32 +8,32 @@ import FifthSlide from '../assets/images/marketplace-slider/qr-code.jpg';
 
 export default function slider() {
   return (
-    <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
+    <div className="h-[120px] sm:h-64 xl:h-80 2xl:h-96">
       <Carousel slideInterval={1000}>
         <img
           src={FirstSlide}
           alt="..."
-          className="h-full"
+          className="object-cover h-full"
         />
         <img
           src={SecondSlide}
           alt="..."
-          className="h-full"
+          className="object-cover h-full"
         />
         <img
           src={ThirdSlide}
           alt="..."
-          className="h-full"
+          className="object-cover h-full"
         />
         <img
           src={FourthSlide}
           alt="..."
-          className="h-full"
+          className="object-cover h-full"
         />
         <img
           src={FifthSlide}
           alt="..."
-          className="h-full"
+          className="object-cover h-full"
         />
       </Carousel>
     </div>
