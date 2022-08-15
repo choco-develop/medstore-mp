@@ -5,7 +5,7 @@ import RecentProducts from './recent-products';
 export default function sampleProducts() {
   return (
     <>
-      <div id="topProducts" className="flex flex-col p-2 border mx-10 xs:mx-2 my-5 shadow-sm px-5 py-5 bg-white">
+      <div id="topProducts" className="flex flex-col p-2 border xs:mx-2 my-5 shadow-sm px-5 md:mx-5 py-5 bg-white">
         <div className="mb-3">
           <div className="relative flex py-5 items-center">
             <div className="grow w-[10%] border" />
@@ -13,10 +13,15 @@ export default function sampleProducts() {
             <div className="grow w-[70%] border" />
           </div>
         </div>
-        <div className="grid grid-cols-6 gap-2 xs:grid-cols-1 xs:grid-rows-6">
+        <div className="flex gap-3
+                      xs:flex-row xs:flex-wrap xs:gap-0
+                      sm:flex-row sm:flex-wrap sm:gap-0
+                      md:flex-row md:justify-between"
+        >
           { TopProducts }
         </div>
-
+      </div>
+      <div id="recentProducts" className="flex flex-col p-2 border xs:mx-2 my-5 shadow-sm px-5 md:mx-5 py-5 bg-white">
         <div className="mb-3">
           <div className="relative flex py-5 items-center">
             <div className="grow w-[10%] border" />
@@ -24,7 +29,11 @@ export default function sampleProducts() {
             <div className="grow w-[70%] border" />
           </div>
         </div>
-        <div className="grid grid-cols-6 gap-2 xs:grid-cols-1 xs:grid-rows-6">
+        <div className="flex gap-3
+                      xs:flex-row xs:flex-wrap xs:gap-0
+                      sm:flex-row sm:flex-wrap sm:gap-0
+                      md:flex-row md:justify-between"
+        >
           { RecentProducts }
         </div>
       </div>
