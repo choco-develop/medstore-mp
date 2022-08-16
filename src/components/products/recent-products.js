@@ -37,6 +37,9 @@ const RecentProducts = RecentProductList.map((value) => (
       <div className="row-span-2 grid grid-rows-2">
         <p className="text-[#364954] font-bold text-center truncate font-serif">{value.name}</p>
       </div>
+      <div className="flex justify-start p-3">
+        <span className={`${value.available ? 'text-main bg-blue-200 ' : 'text-black bg-gray-300'} font-serif px-3 rounded-md capitalize`}>{ value.available ? 'available in stock' : 'available in order'}</span>
+      </div>
     </div>
   </div>
 ));

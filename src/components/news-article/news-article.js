@@ -3,8 +3,9 @@ import NewsArticleList from './news-article-list';
 const NewsArticleComponent = NewsArticleList.map((value) => (
 
   <li
-    className="grid grid-rows-7
-            gap-3 border hover:shadow-2xl
+    className="grid grid-rows-7 bg-gray-100
+            gap-4 border hover:shadow-2xl
+            xs:w-screen
             sm:basis-1/2
             md:basis-1/3
             lg:basis-1/4 lg:max-w-[250px]
@@ -12,7 +13,7 @@ const NewsArticleComponent = NewsArticleList.map((value) => (
     key={value.title}
   >
     <div className="row-span-4">
-      <img src={value.image_url} alt="..." className=" w-full object-cover" />
+      <img src={value.image_url} alt="..." className="w-full object-cover" />
     </div>
     <div className="row-span-1 flex gap-2 px-1">
       {

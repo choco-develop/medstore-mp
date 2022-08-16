@@ -6,7 +6,7 @@ import LogoCircle from './logo-circle';
 
 const SideNavLinks = () => (
   LinkList.map((value) => (
-    <NavLink id={value.id} name={value.name} url={value.url} icon={value.icon} key={value.id} />
+    <NavLink id={value.id} name={value.name} url={value.url} icon={value.icon} key={value.name} />
   ))
 );
 

@@ -18,7 +18,7 @@ const RecentProductList = [
     image_url: 'https://img.medicalexpo.com/images_me/projects/images-om/42285-17736533.jpg',
     brand: 'https://img.medicalexpo.com/images_me/logo-pp/L79119.gif',
     price: '$ 25,000',
-    available: false,
+    available: true,
   },
   {
     name: 'Sliding door',
@@ -32,7 +32,7 @@ const RecentProductList = [
     image_url: 'https://img.medicalexpo.com/images_me/photo-mg/78331-17627284.jpg',
     brand: 'https://img.medicalexpo.com/images_me/logo-pp/L80292.gif',
     price: '$ 21,000',
-    available: false,
+    available: true,
   },
 ];
 

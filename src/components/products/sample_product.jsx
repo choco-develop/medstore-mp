@@ -5,11 +5,15 @@ import RecentProducts from './recent-products';
 export default function sampleProducts() {
   return (
     <>
-      <div id="topProducts" className="flex flex-col p-2 border xs:mx-2 my-5 shadow-sm px-5 md:mx-5 py-5 bg-white">
+      <div
+        id="topProducts"
+        className="flex flex-col p-2 border
+                my-5 shadow-sm px-5 bg-white py-5"
+      >
         <div className="mb-3">
           <div className="relative flex py-5 items-center">
             <div className="grow w-[10%] border" />
-            <span className="flex-none mx-2 text-gray-500">Top Products</span>
+            <span className="flex-none mx-2 text-main font-serif">Top Products</span>
             <div className="grow w-[70%] border" />
           </div>
         </div>
@@ -21,11 +25,11 @@ export default function sampleProducts() {
           { TopProducts }
         </div>
       </div>
-      <div id="recentProducts" className="flex flex-col p-2 border xs:mx-2 my-5 shadow-sm px-5 md:mx-5 py-5 bg-white">
+      <div id="recentProducts" className="flex flex-col p-5 border my-5 shadow-sm bg-white">
         <div className="mb-3">
           <div className="relative flex py-5 items-center">
             <div className="grow w-[10%] border" />
-            <span className="flex-none mx-2 text-gray-500">Recent Products</span>
+            <span className="flex-none mx-2 text-main font-serif">Recent Products</span>
             <div className="grow w-[70%] border" />
           </div>
         </div>

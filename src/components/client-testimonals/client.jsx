@@ -16,7 +16,7 @@ export default function client() {
             <strong className="text-center text-orange-600">Petter L.</strong>
           </div>
           <div>
-            <p className="font-serif text-xs italic indent-2 text-center text-gray-600">Lorem ipsum dolor,it amet consectetur adipisicing elit.Facilis ut sed sequi odit.it amet consectetur adipisicing elit.Facilis ut sed sequi odit</p>
+            <p className="font-serif text-xs italic indent-2 text-center text-gray-600 font-lato font-bold">Lorem ipsum dolor,it amet consectetur adipisicing elit.Facilis ut sed sequi odit.it amet consectetur adipisicing elit.Facilis ut sed sequi odit</p>
           </div>
         </div>
         <div className="flex flex-col gap-2 w-64">

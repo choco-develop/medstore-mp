@@ -9,11 +9,13 @@ export default function Home() {
   return (
     <>
       <Slider />
-      <Category />
-      <SampleProduct />
-      <NewsArticle />
-      <ClientComment />
-      <AboutUs />
+      <div className="xl:mx-20 2xl:mx-32">
+        <Category />
+        <SampleProduct />
+        <NewsArticle />
+        <AboutUs />
+        <ClientComment />
+      </div>
     </>
   );
 }

@@ -1,13 +1,14 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { MdSearch, MdLogin } from 'react-icons/md';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import MainLogo from '../../assets/images/colored-logo.png';
 import MobileNav from './mobile-nav';
+import navMenuContext from '../../contexts/navigationMenuContext';
 
 export default function Header() {
-  const [search, setSearch] = useState('');
-  const [navBar, setNavBar] = useState(false);
-
+  const {
+    navBar, setNavBar, search, setSearch,
+  } = useContext(navMenuContext);
   const handleMenuBtn = useCallback(() => {
     setNavBar(!navBar);
     console.log(navBar);

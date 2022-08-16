@@ -30,7 +30,7 @@ export default function category() {
   }
 
   const settings = {
-    className: 'grid grid-cols-6 grid-rows-2 mx-10 xs:mx-3 xs:auto-rows-max mb-2 p-5 xs:hidden bg-white relative',
+    className: 'grid grid-cols-6 grid-rows-2 xs:auto-rows-max mb-2 p-5 xs:hidden bg-white relative',
     dots: true,
     infinite: true,
     speed: 500,
@@ -75,9 +75,9 @@ export default function category() {
   };
 
   return (
-    <div className="px-5">
-      <div className="flex justify-center text-gray-900  mt-10">
-        <h1 className="font-bold font-italic font-serif">New and Used Medical Equipment</h1>
+    <div className="">
+      <div className="flex justify-center mt-10">
+        <h1 className="font-bold font-italic font-serif text-main">New and Used Medical Equipment</h1>
       </div>
       <Slider {...settings}> {/* eslint-disable-line */}
         { catMax }
