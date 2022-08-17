@@ -7,7 +7,7 @@ import {
 export default function footer() {
   return (
     <footer className="flex flex-col flex-wrap w-full text-[#e6f4f1]">
-      <div className="flex justify-evenly bg-main p-5">
+      <div className="flex flex-wrap gap-y-3 justify-evenly bg-main p-5">
         <div className="flex flex-col gap-3">
           <h2 className="font-bold">Company</h2>
           <div className="flex flex-col gap-2 text-[#bcd7d2]">
