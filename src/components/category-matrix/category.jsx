@@ -1,8 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick';
 import { SamplePrevArrow, SampleNextArrow } from './slider-slick';
-// import CategoryOne from '../../assets/images/category/aid.png';
-// import CategoryTwo from '../../assets/images/category/measure.png';
 import CatList from './category-list';
 
 export default function category() {
