@@ -13,8 +13,9 @@ export default function NewsArticle() {
       <div
         className="flex flex-wrap
                   xs:gap-y-3
-                  lg:justify-between
-                  xl:justify-start xl:gap-10"
+                  md:justify-between
+                  lg:justify-evenly
+                  xl:justify-start xl:gap-3"
       >
         {
           NewsArticleComponent

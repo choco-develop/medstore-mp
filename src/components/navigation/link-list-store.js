@@ -22,7 +22,7 @@ const LinkList = [
   {
     id: 1,
     name: 'Login',
-    url: 'https://localhost.com',
+    url: '/login',
     icon: <MdLogin />,
   },
 ];

@@ -7,8 +7,8 @@ const NewsArticleComponent = NewsArticleList.map((value) => (
             gap-4 border hover:shadow-2xl
             xs:w-screen
             sm:basis-1/2
-            md:basis-1/3
-            lg:basis-1/4 lg:max-w-[250px]
+            md:basis-1/3 md:max-w-[270px] md:border-1 md:border-main
+            lg:basis-1/3
             xl:min-w-[350px]"
     key={value.title}
   >

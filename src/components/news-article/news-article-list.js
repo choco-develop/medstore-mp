@@ -55,22 +55,6 @@ const NewsArticleList = [
     date: 'July 21, 2022 / 5 mins',
     image_url: 'https://emag.medicalexpo.com/wp-content/uploads/sites/9/hair-loss-1-320x213.jpg',
   },
-  {
-    id: 4,
-    tag: [
-      {
-        id: 1,
-        name: 'SPECIALIST',
-      },
-      {
-        id: 2,
-        name: 'Surgery Unit',
-      },
-    ],
-    title: 'Plastic Waste in Healthcare: Finding Solutions',
-    date: 'August 1, 2022 / 7 mins',
-    image_url: 'https://emag.medicalexpo.com/wp-content/uploads/sites/9/Pile-of-Medical-Plastics-320x213.jpg',
-  },
 ];
 
 export default NewsArticleList;
