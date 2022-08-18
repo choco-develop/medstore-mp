@@ -3,8 +3,8 @@ import ProductList from './top-product-list';
 const TopProducts = ProductList.map((value) => (
   <div
     className="flex flex-col hover:border-main border rounded-lg h-1/2
-              xs:basis-1/2
-              sm:basis-1/3
+              xs:basis-[70%] xs:mx-auto
+              sm:basis-1/3 sm:mx-0
               md:basis-1/4
               xl:basis-1/5
               2xl:basis-1/6"
@@ -36,8 +36,21 @@ const TopProducts = ProductList.map((value) => (
       <div className="row-span-2 grid">
         <p className="text-[#364954] font-bold text-center truncate font-serif">{value.name}</p>
       </div>
-      <div className="flex justify-start p-3">
-        <span className={`${value.available ? 'text-main bg-blue-200 ' : 'text-black bg-gray-300'} font-serif px-3 rounded-md capitalize`}>{ value.available ? 'available in stock' : 'available in order'}</span>
+      <div className="flex justify-between">
+        <span
+          className={`${value.available ? 'text-main bg-blue-200 ' : 'text-gray-700 bg-gray-300'}
+                    font-serif px-3 rounded-md capitalize font-light font-xs mr-2`}
+        >
+          { value.available ? 'available in stock' : 'available in order'}
+        </span>
+        <span
+          className="text-gray-700 bg-gray-300
+                    font-serif px-3 rounded-md capitalize
+                    flex items-center
+                    font-light font-xs"
+        >
+          Compare
+        </span>
       </div>
     </div>
   </div>

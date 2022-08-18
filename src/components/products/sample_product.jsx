@@ -18,7 +18,7 @@ export default function sampleProducts() {
           </div>
         </div>
         <div className="flex gap-3
-                      xs:flex-row xs:flex-wrap xs:gap-0
+                      xs:flex-row xs:flex-wrap xs:gap-0 xs:gap-y-2
                       sm:flex-row sm:flex-wrap sm:gap-0
                       md:flex-row md:justify-between"
         >
