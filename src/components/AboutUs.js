@@ -1,4 +1,5 @@
 import React from 'react';
+import CompanyLogo from '../assets/images/Logo-New.png';
 
 export default function AboutUs() {
   return (
@@ -7,20 +8,24 @@ export default function AboutUs() {
         <div className="col-span-1 xs:hidden grid grid-rows-3">
           <img src="./assets/logo-2.png" alt="company" className="row-span-2  self-center" />
         </div>
-        <div className="col-span-4 xs:col-span-5 ml-10">
-          <p className="indent-10 text-justify text-gray-600">
-            But I must explain to you how all this mistaken idea of reprobating pleasure
-            and extolling pain arose  how all this mistaken idea of reprobating pleasure.
-            how all this mistaken idea of reprobating pleasure  how all this mistaken idea
-            how all this mistaken idea of reprobating pleasure of reprobating pleasure
+        <div className="col-span-4 ml-10 xs:col-span-5">
+          <img
+            src={CompanyLogo}
+            alt="..."
+            className="float-left object-scale-down w-1/2 px-3 sm:w-1/5"
+          />
+          <p className="text-justify text-gray-600 mb-3">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Donec ultricies erat non libero tempor ultrices.
+            Mauris consequat a diam ut vehicula.
+            Proin lobortis pharetra facilisis. Sed condimentum arcu non massa vehicula vehicula.
+            Suspendisse pretium, nunc vitae luctus mattis, nibh libero
+            semper ex, in semper elit dui eu nulla. Pellentesque nibh urna,
+            fermentum nec pharetra sed, varius et augue. In vehicula lobortis blandit.
+            Integer est sapien, fringilla non viverra ac, congue nec ex.
+            Sed eget lacus felis. Nulla nec vehicula turpis, eget iaculis nibh.
           </p>
-          <p className="indent-10 mt-6 text-justify text-gray-600">
-            But I must explain to you how all this mistaken idea of reprobating pleasure
-            and extolling pain arose  how all this mistaken idea of reprobating pleasure.
-            how all this mistaken idea of reprobating pleasure  how all this mistaken idea
-            how all this mistaken idea of reprobating pleasure of reprobating pleasure
-          </p>
-          <button type="button" className="px-7 py-2 border mt-5 bg-main text-white">
+          <button type="button" className="px-7 py-2 border mt-5 bg-main text-white w-[200px]">
             About Us
           </button>
         </div>
