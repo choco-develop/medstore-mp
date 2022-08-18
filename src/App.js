@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/navigation/header';
 import Footer from './components/footer';
-import LoginForm from './components/auth/login-form';
+import LoginPage from './pages/login/Login';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Home from './components/Home';
@@ -21,7 +21,7 @@ function App() {
             <Router>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="login" element={<LoginForm />} />
+                <Route path="login" element={<LoginPage />} />
               </Routes>
             </Router>
             <Footer />

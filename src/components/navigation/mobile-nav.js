@@ -33,7 +33,7 @@ function MobileNav({ handleMenuBtn, navBarValue }) {
         <MdClose className="text-gray-300" size={30} onClick={() => handleMenuBtn()} />
       </div>
       <LogoCircle navBarValue={navBarValue} />
-      <ul className="flex flex-col h-full items-center justify-center mt-4 gap-4 p-3">
+      <ul className={`flex flex-col h-full items-center justify-center mt-4 gap-4 p-3 ${navBarValue ? 'scale-100' : 'scale-0'}`}>
         <SideNavLinks />
       </ul>
     </nav>
