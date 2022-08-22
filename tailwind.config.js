@@ -9,6 +9,7 @@ module.exports = {
       main: '#1a8bb5',
       top: '#006F98',
       temp: '#89E2FF',
+      busy: '#1a8bb582',
     },
     screens: {
       xs: '329px',
