@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/navigation/header';
 import Footer from './components/footer';
 import LoginPage from './pages/login/Login'
+import StaffRegister from './pages/registration/Staff';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Home from './components/Home';
@@ -25,6 +26,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="login" element={<LoginPage />} />
+                  <Route path="sign-up/staff" element={<StaffRegister />} />
                 </Routes>
               </Router>
               <Footer />

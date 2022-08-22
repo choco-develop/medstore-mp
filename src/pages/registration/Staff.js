@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AiFillFacebook, AiFillLinkedin } from 'react-icons/ai';
 import GoogleIcon from '../../assets/images/icons/google.png';
 import { register } from '../../redux/actions/auth';
-import { StaffFields } from '../../components/RegisterForm/StaffFields';
+import StaffFields from '../../components/RegisterForm/StaffFields';
 
 export default function Staff() {
   const form = useRef();
@@ -13,6 +13,7 @@ export default function Staff() {
     password2: '',
     phone_number: '',
   };
+
   const [state, setState] = useState(inputFields);
   const [loading, setLoading] = useState(false);
 
@@ -34,13 +35,14 @@ export default function Staff() {
       });
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e) => {//eslint-disable-line
     const { value } = e.target;
     setState({
       ...state,
       [e.target.name]: value,
     });
   };
+
   if (isLoggedIn) {
     navigate('/');
   }
@@ -70,7 +72,7 @@ export default function Staff() {
             </ul>
           )
         }
-        <StaffFields handleInputChange={handleInputChange} inputFields />
+        <StaffFields handleInputChange={handleInputChange} inputFields={inputFields} />
         <div className="flex justify-start items-center gap-2">
           <input type="checkbox" name="rememeber" className="border border-main checked:bg-main" />
           <span className="font-serif text-gray-600">Rememeber me?</span>

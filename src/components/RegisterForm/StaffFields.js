@@ -6,7 +6,6 @@ function StaffFields({ handleInputChange, inputFields }) {
     password2,//eslint-disable-line
     phone_number,//eslint-disable-line
   } = inputFields; //eslint-disable-line
-
   const InputItem = ({ name, inputType = 'text', val }) => {
     const labelName = name.split('_').join(' ');
 
@@ -38,13 +37,11 @@ function StaffFields({ handleInputChange, inputFields }) {
     val: PropTypes.string.isRequired,
   };
 
-  const InputList = Object.entries(inputFields).map(([key, val]) => (
-    <InputItem key={`InputItem${val}`} name={key} val />
-  ));
-
   return (
     <>
-      <InputList />
+      {Object.entries(inputFields).map(([key, val]) => (
+        <InputItem key={`InputItem${key}`} name={key} inputType="text" val={val} />
+      ))}
     </>
   );
 }
