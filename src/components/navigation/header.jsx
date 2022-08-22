@@ -1,26 +1,57 @@
 import React, { useCallback, useContext } from 'react';
-import { MdSearch, MdLogin } from 'react-icons/md';
+import { MdSearch, MdLogin, MdLogout } from 'react-icons/md';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/actions/auth';
 import MainLogo from '../../assets/images/colored-logo.png';
 import MobileNav from './mobile-nav';
 import navMenuContext from '../../contexts/navigationMenuContext';
 
 export default function Header() {
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
   const {
     navBar, setNavBar, search, setSearch,
   } = useContext(navMenuContext);
+
   const handleMenuBtn = useCallback(() => {
     setNavBar(!navBar);
-    console.log(navBar);
   }, [navBar]);
+
+  const logOut = () => {
+    dispatch(logout());
+  };
+
+  const AuthTools = () => {
+    if (!isLoggedIn) {
+      return (
+        <li className="xs:hidden sm:block navItems">
+          <a href="/login" className="flex items-center gap-1 hover:text-gray-200">
+            <MdLogin />
+            <p className="font-serif">Login</p>
+          </a>
+        </li>
+      );
+    }
+
+    return (
+      <li className="xs:hidden sm:block navItems">
+        <button type="button" className="flex items-center gap-1 hover:text-gray-200" onClick={() => logOut()}>
+          <MdLogout />
+          <p className="font-serif">Logout</p>
+        </button>
+      </li>
+    );
+  };
 
   return (
     <nav className="flex flex-col w-full relative">
       <div className="flex justify-between p-2 mini-nav content-center bg-top">
         <div>
-          <p className="font-serif">Ethiopian Medical Material Portal</p>
+          <p className="font-serif font-sm italic">Ethiopian Medical Material Portal</p>
         </div>
-        <div className="flex items-center pr-2">
+        <div className="flex items-center pr-0 md:pr-2 ">
           <a href="http://localhost:8000" className="font-serif">Seller Portal</a>
         </div>
       </div>
@@ -92,12 +123,7 @@ export default function Header() {
                 <GiHamburgerMenu size={25} />
               </button>
             </li>
-            <li className="xs:hidden sm:block navItems">
-              <a href="http://localhost:3000/login" className="flex items-center gap-1 hover:text-gray-200">
-                <MdLogin />
-                <p className="font-serif">Login</p>
-              </a>
-            </li>
+            <AuthTools />
           </ul>
           <section
             className={`transition-all duration-500 ease-in absolute top-0 right-0 bg-main rounded-l-xl h-[100vh] ${navBar ? 'w-3/4' : 'w-0'}`}
