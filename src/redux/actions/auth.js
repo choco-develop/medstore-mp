@@ -15,9 +15,9 @@ export const register = (userDate) => (dispatch) => AuthService.register(userDat
     });
     dispatch({
       type: SET_MESSAGE,
-      payload: res.data.message,
+      payload: res,
     });
-    return Promise.resolve();
+    return Promise.resolve(res);
   },
   (err) => {
     const msg = (err.response
