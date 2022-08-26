@@ -1,11 +1,11 @@
 /* eslint-disable */
 import { useState } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import Header from './components/navigation/header';
 import Footer from './components/footer';
 import LoginPage from './pages/login/Login'
-import StaffRegister from './pages/registration/Staff';
+import BuyerRegister from './pages/registration/Buyer';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Home from './components/Home';
@@ -26,11 +26,12 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="login" element={<LoginPage />} />
-                  <Route path="sign-up/staff" element={<StaffRegister />} />
+                  <Route path="buyer/sign-up" element={<BuyerRegister />} />
                 </Routes>
               </Router>
               <Footer />
             </div>
+            <Outlet />
           </navMenuContext.Provider>
         </Provider>
       </>
