@@ -7,7 +7,7 @@ const register = (userData) => axios.post(`${API_URL}/accounts/user_signup/`, us
       'content-type': 'multipart/form-data',
     },
   })
-  .then((res) => console.log('res', res))
+  .then((res) => Promise.resolve(res))
   .catch((err) => Promise.reject(err));
 
 const login = (username, password) => axios.post(`${API_URL}/accounts/login/`, {

@@ -22,8 +22,7 @@ export default function Buyer() {
       [e.target.name]: e.target.value,
     });
   };
-  const { isLoggedIn } = useSelector((state) => state.auth);
-  const { message } = useSelector((state) => state.message);
+  const { isLoggedIn, message } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -32,22 +31,32 @@ export default function Buyer() {
     e.preventDefault();
     setLoading(true);
     dispatch(register(allValues))
-      .then(() => {
+      .then((res) => {
+        console.log('pages/Buyer.js: Success', res);
         setLoading(false);
       })
       .catch(() => {
+        console.log('pages/Buyer.js: errror', message);
         setLoading(false);
       });
   };
 
   const ErrorMessage = () => {
-    const haveAnError = message.error;
-    const errorsObj = message.msg;
-    console.log('message::', errorsObj);
-    console.log('have an errror', haveAnError);
-    if (haveAnError) {
+    const { data, isError } = message;
+    console.log('data', data);
+    console.log('isError', isError);
+    if (data && isError) {
       return (
-        Object.entries(errorsObj).map(([key, val]) => (
+        Object.entries(data).map(([key, val]) => (
+          <li key={key} className="pl-3 flex gap-1">
+            <span className="capitalize">{`${key.split('_').join(' ')}:`}</span>
+            <i>{val}</i>
+          </li>
+        ))
+      );
+    } else if (data.err) {  //eslint-disable-line
+      return (
+        Object.entries(data.msg).map(([key, val]) => (
           <li key={key} className="pl-3 flex gap-1">
             <span className="capitalize">{`${key.split('_').join(' ')}:`}</span>
             <i>{val}</i>
@@ -56,7 +65,10 @@ export default function Buyer() {
       );
     }
     return (
-      <p>No error</p>
+      <li className="flex flex-col text-green-400 italic px-0 py-2">
+        <p>{`${data.msg}.`}</p>
+        <span>{`Your email: ${data.user_email}`}</span>
+      </li>
     );
   };
 
@@ -84,8 +96,7 @@ export default function Buyer() {
           </div>
           {
             message && (
-              <ul className="flex flex-col px-3 list-disc list-inside text-red-500 justify-center">
-                <h2>Errors occured:</h2>
+              <ul className="flex flex-col px-3 list-inside text-red-500 justify-center list-decimal">
                 <ErrorMessage />
               </ul>
             )

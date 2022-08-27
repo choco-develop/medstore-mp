@@ -10,25 +10,20 @@ import AuthService from '../../services/auth-service';
 
 export const register = (userDate) => (dispatch) => AuthService.register(userDate).then(
   (res) => {
+    console.log('redux/actions/auth :success', res);
     dispatch({
       type: REGISTER_SUCCESS,
-    });
-    dispatch({
-      type: SET_MESSAGE,
-      payload: res,
+      payload: res.data,
     });
     return Promise.resolve(res);
   },
   (err) => {
-    const { data } = err.response;
+    console.log('redux/actions/auth :error', err);
     dispatch({
       type: REGISTER_FAIL,
+      payload: err.response.data,
     });
-    dispatch({
-      type: SET_MESSAGE,
-      payload: data,
-    });
-    return Promise.reject();
+    return Promise.reject(err);
   },
 );
 
