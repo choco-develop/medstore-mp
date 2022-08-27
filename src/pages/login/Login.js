@@ -111,7 +111,7 @@ export default function Login(props) {
             />
           </div>
         </form>
-        <AuthFooter link="/sign-up/staff" />
+        <AuthFooter link="/buyer/sign-up" />
       </div>
     </section>
   );
