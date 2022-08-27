@@ -20,17 +20,13 @@ export const register = (userDate) => (dispatch) => AuthService.register(userDat
     return Promise.resolve(res);
   },
   (err) => {
-    const msg = (err.response
-          && err.response.data
-          && err.response.data.message)
-        || err.message
-        || err.toString();
+    const { data } = err.response;
     dispatch({
       type: REGISTER_FAIL,
     });
     dispatch({
       type: SET_MESSAGE,
-      payload: msg,
+      payload: data,
     });
     return Promise.reject();
   },

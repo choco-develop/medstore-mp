@@ -8,7 +8,11 @@ export default function Buyer() {
   const form = useRef();
   const [loading, setLoading] = useState(false);
   const [allValues, setAllValues] = useState({
-    email: 'fg',
+    email: '',
+    role: 'Buyer',
+    first_name: '',
+    last_name: '',
+    phone_number: '',
     password: '',
     password2: '',
   });
@@ -44,7 +48,10 @@ export default function Buyer() {
     if (haveAnError) {
       return (
         Object.entries(errorsObj).map(([key, val]) => (
-          <li key={key}>{`${key} and ${val}`}</li>
+          <li key={key} className="pl-3 flex gap-1">
+            <span className="capitalize">{`${key.split('_').join(' ')}:`}</span>
+            <i>{val}</i>
+          </li>
         ))
       );
     }
@@ -65,9 +72,10 @@ export default function Buyer() {
               gap-3
               sm:my-16 sm:mx-16 sm:pt-4 sm:px-4"
     >
-      <div className="flex flex-col bg-white w-full md:w-[90%] lg:w-[60%] xl:w-[45%]">
+      <div className="flex flex-col bg-white w-full md:w-[90%] lg:w-[60%] xl:w-[55%]">
         <form
           className="flex flex-col gap-5 md:mx-auto md:w-1/2 xl:w-[90%]"
+          type="multipart/form-data"
           onSubmit={handleRegister}
           ref={form}
         >
@@ -77,6 +85,7 @@ export default function Buyer() {
           {
             message && (
               <ul className="flex flex-col px-3 list-disc list-inside text-red-500 justify-center">
+                <h2>Errors occured:</h2>
                 <ErrorMessage />
               </ul>
             )
@@ -92,6 +101,54 @@ export default function Buyer() {
                           placeholder:italic
                           focus:border-main focus:ring-0"
                 placeholder="Enter your email here..."
+                required
+                onChange={inputHandler}
+              />
+            </label>
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="first_name" className="flex flex-col">
+              <span className="leading-10 font-serif text-gray-600 capitalize">First Name</span>
+              <input
+                type="first_name"
+                id="first_name"
+                name="first_name"
+                className="border-2 border-main p-3 rounded-lg
+                          placeholder:italic
+                          focus:border-main focus:ring-0"
+                placeholder="Enter your first name here..."
+                required
+                onChange={inputHandler}
+              />
+            </label>
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="last_name" className="flex flex-col">
+              <span className="leading-10 font-serif text-gray-600 capitalize">Last Name</span>
+              <input
+                type="last_name"
+                id="last_name"
+                name="last_name"
+                className="border-2 border-main p-3 rounded-lg
+                          placeholder:italic
+                          focus:border-main focus:ring-0"
+                placeholder="Enter your last_name here..."
+                required
+                onChange={inputHandler}
+              />
+            </label>
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="phone_number" className="flex flex-col">
+              <span className="leading-10 font-serif text-gray-600 capitalize">Phone Number</span>
+              <input
+                type="phone_number"
+                id="phone_number"
+                name="phone_number"
+                className="border-2 border-main p-3 rounded-lg
+                          placeholder:italic
+                          focus:border-main focus:ring-0"
+                placeholder="+2519xxxxxxxx"
                 required
                 onChange={inputHandler}
               />
@@ -114,10 +171,10 @@ export default function Buyer() {
             </label>
           </div>
           <div className="flex flex-col">
-            <label htmlFor="password" className="flex flex-col">
+            <label htmlFor="password2" className="flex flex-col">
               <span className="leading-10 font-serif text-gray-600">Confirm Password</span>
               <input
-                type="password2"
+                type="password"
                 id="password2"
                 name="password2"
                 className="border-2 border-main p-3 rounded-lg

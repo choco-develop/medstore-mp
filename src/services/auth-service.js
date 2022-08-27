@@ -1,9 +1,15 @@
 import axios from 'axios';
 import API_URL from './index';
 
-const register = (userData) => axios.post(`${API_URL}/accounts/user_signup/`, userData)
-  .then((res) => res.data)
-  .catch((err) => err);
+const register = (userData) => axios.post(`${API_URL}/accounts/user_signup/`, userData,
+  {
+    headers: {
+      'content-type': 'multipart/form-data',
+    },
+  })
+  .then((res) => console.log('res', res))
+  .catch((err) => Promise.reject(err));
+
 const login = (username, password) => axios.post(`${API_URL}/accounts/login/`, {
   username,
   password,
