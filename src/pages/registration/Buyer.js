@@ -32,19 +32,19 @@ export default function Buyer() {
     setLoading(true);
     dispatch(register(allValues))
       .then((res) => {
-        console.log('pages/Buyer.js: Success', res);
+        if (!res.data.err) {
+          localStorage.setItem('userEmail', JSON.stringify(allValues));
+          navigate('/buyer/account-activate');
+        }
         setLoading(false);
       })
       .catch(() => {
-        console.log('pages/Buyer.js: errror', message);
         setLoading(false);
       });
   };
 
   const ErrorMessage = () => {
     const { data, isError } = message;
-    console.log('data', data);
-    console.log('isError', isError);
     if (data && isError) {
       return (
         Object.entries(data).map(([key, val]) => (
@@ -57,8 +57,8 @@ export default function Buyer() {
     } else if (data.err) {  //eslint-disable-line
       return (
         Object.entries(data.msg).map(([key, val]) => (
-          <li key={key} className="pl-3 flex gap-1">
-            <span className="capitalize">{`${key.split('_').join(' ')}:`}</span>
+          <li key={key} className="pl-3 flex flex-wrap gap-1">
+            <span className="capitalize font-medium">{`${key.split('_').join(' ')}:`}</span>
             <i>{val}</i>
           </li>
         ))
@@ -84,9 +84,9 @@ export default function Buyer() {
               gap-3
               sm:my-16 sm:mx-16 sm:pt-4 sm:px-4"
     >
-      <div className="flex flex-col bg-white w-full md:w-[90%] lg:w-[60%] xl:w-[55%]">
+      <div className="flex flex-col bg-white w-full rounded-2xl border border-main md:w-[90%] lg:w-[60%] xl:w-[55%]">
         <form
-          className="flex flex-col gap-5 md:mx-auto md:w-1/2 xl:w-[90%]"
+          className="flex flex-col gap-5 p-3 md:mx-auto md:w-1/2 xl:w-[90%]"
           type="multipart/form-data"
           onSubmit={handleRegister}
           ref={form}

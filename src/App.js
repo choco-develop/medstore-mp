@@ -6,6 +6,7 @@ import Header from './components/navigation/header';
 import Footer from './components/footer';
 import LoginPage from './pages/login/Login'
 import BuyerRegister from './pages/registration/Buyer';
+import BuyerActivate from './pages/activate-account/BuyerActivate';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Home from './components/Home';
@@ -27,6 +28,7 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="login" element={<LoginPage />} />
                   <Route path="buyer/sign-up" element={<BuyerRegister />} />
+                  <Route path="buyer/account-activate" element={<BuyerActivate />} />
                 </Routes>
               </Router>
               <Footer />
