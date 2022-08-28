@@ -9,7 +9,7 @@ function AuthFooter({ link }) {
 
   return (
     <>
-      <div className="flex py-5 items-center md:mx-auto md:w-1/2 xl:w-[90%]">
+      <div className="flex py-5 px-3 items-center md:mx-auto md:w-1/2 xl:w-[90%]">
         <div className="grow border border-main" />
         <div
           className="flex-none border border-main

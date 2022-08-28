@@ -41,7 +41,7 @@ export default function Login(props) {
               gap-3
               sm:my-16 sm:mx-16 sm:pt-4 sm:px-4"
     >
-      <div className="flex flex-col bg-white w-full md:w-[90%] lg:w-[60%] xl:w-[45%]">
+      <div className="flex flex-col bg-white w-full rounded-2xl border border-main md:w-[90%] lg:w-[60%] xl:w-[45%]">
         <form
           className="flex flex-col gap-5 rounded-md p-5"
           onSubmit={handleLogin}
@@ -104,7 +104,7 @@ export default function Login(props) {
           <div className="flex flex-col">
             <input
               type="submit"
-              className={`text-center text-whit py-3 font-medium ${loading ? 'bg-busy' : 'bg-main'}`}
+              className={`text-center text-white py-3 font-medium ${loading ? 'bg-busy' : 'bg-main'}`}
               value="LOGIN"
               required
               disabled={loading}
