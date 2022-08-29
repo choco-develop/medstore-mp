@@ -2,6 +2,7 @@ import React, { useCallback, useContext } from 'react';
 import { MdSearch, MdLogin, MdLogout } from 'react-icons/md';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { logout } from '../../redux/actions/auth';
 import MainLogo from '../../assets/images/colored-logo.png';
 import MobileNav from './mobile-nav';
@@ -26,17 +27,17 @@ export default function Header() {
   const AuthTools = () => {
     if (!isLoggedIn) {
       return (
-        <li className="xs:hidden sm:block navItems">
-          <a href="/login" className="flex items-center gap-1 hover:text-gray-200">
+        <li className="xs:hidden sm:block">
+          <Link to="/login" className="flex items-center gap-1 hover:text-gray-200">
             <MdLogin />
             <p className="font-serif">Login</p>
-          </a>
+          </Link>
         </li>
       );
     }
 
     return (
-      <li className="xs:hidden sm:block navItems">
+      <li className="xs:hidden sm:block">
         <button type="button" className="flex items-center gap-1 hover:text-gray-200" onClick={() => logOut()}>
           <MdLogout />
           <p className="font-serif">Logout</p>
@@ -84,7 +85,7 @@ export default function Header() {
         </div>
         <div className="flex-1 flex items-center justify-end">
           <ul className="flex w-full justify-end gap-x-4 px-3 items-center text-white xs:justify-end">
-            <li className="xs:hidden">
+            <li className="xs:hidden md:block">
               <div
                 className="flex"
                 style={{ backgroundColor: '#2f6e7021' }}
@@ -104,16 +105,16 @@ export default function Header() {
                 </button>
               </div>
             </li>
-            <li className="xs:hidden sm:block navItems">
-              <a href="http://localhost:8000" className="hover:text-gray-200 font-serif">Buy Equipment</a>
+            <li className="xs:hidden sm:block">
+              <Link to="/equipment" className="hover:text-gray-200 font-serif">Buy Equipment</Link>
             </li>
-            <li className="xs:hidden sm:block navItems">
-              <a href="http://localhost:8000" className="hover:text-gray-200 font-serif">News/Article</a>
+            <li className="xs:hidden sm:block">
+              <Link to="/emagazine" className="hover:text-gray-200 font-serif">News/Article</Link>
             </li>
-            <li className="xs:hidden sm:block navItems">
-              <a href="http://localhost:8000" className="hover:text-gray-200 font-serif">Tender</a>
+            <li className="xs:hidden sm:block">
+              <Link to="/tender" className="hover:text-gray-200 font-serif">Tender</Link>
             </li>
-            <li className="navItems">
+            <li className="backdrop:">
               <button
                 type="button"
                 className="flex items-center gap-1 hover:text-gray-200
