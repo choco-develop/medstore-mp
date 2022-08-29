@@ -79,14 +79,14 @@ export default function Buyer() {
   return (
 
     <section
-      className="flex justify-center
+      className="flex
               my-6 mx-1 pt-2 px-2
               gap-3
               sm:my-16 sm:mx-16 sm:pt-4 sm:px-4"
     >
-      <div className="flex flex-col bg-white w-full rounded-2xl border border-main md:w-[90%] lg:w-[60%] xl:w-[55%]">
+      <div className="flex flex-col bg-white w-full rounded-2xl border border-main md:w-[90%] lg:w-[100%] lg:border-none xl:w-[100%]">
         <form
-          className="flex flex-col gap-5 p-3 md:mx-auto md:w-1/2 xl:w-[90%]"
+          className="flex flex-col gap-5 p-3 md:mx-auto md:w-3/4 lg:w-1/2 xl:w-[90%]"
           type="multipart/form-data"
           onSubmit={handleRegister}
           ref={form}
