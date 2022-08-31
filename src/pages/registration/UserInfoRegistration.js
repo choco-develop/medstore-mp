@@ -1,229 +1,117 @@
-import {
-  Card, Form, Select, DatePicker, Input,
-  Upload, Button, Steps,
-} from 'antd';
-import ImgCrop from 'antd-img-crop';
-import React, { useState } from 'react';
-import moment from 'moment';
-import COUNTRY_LIST from '../../data/country';
+/* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import UserInfoDetailForm from '../../components/register-form/UserInfoDetailForm';
 
-const { Option } = Select;
-const { Step } = Steps;
+const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
 
 export default function UserInfoRegistration() {
-  const onFinish = (values) => {
-    console.log('Success', values);
-  };
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [skipped, setSkipped] = React.useState(new Set());
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed', errorInfo);
-  };
+  const isStepOptional = (step) => step === 1;
 
-  const disabledDate = (current) => current && current > moment().endOf('day');
+  const isStepSkipped = (step) => skipped.has(step);
 
-  const [fileList, setFileList] = useState([]);
-
-  const onChange = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
-  };
-
-  const [profileImageList, setProfileFileList] = useState([]);
-
-  const onProfileChange = ({ fileList: newFileList }) => {
-    setProfileFileList(newFileList);
-  };
-
-  const onPreview = async (file) => {
-    let src = file.url;
-
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-
-        reader.onload = () => resolve(reader.result);
-      });
+  const handleNext = () => {
+    let newSkipped = skipped;
+    if (isStepSkipped(activeStep)) {
+      newSkipped = new Set(newSkipped.values());
+      newSkipped.delete(activeStep);
     }
 
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow?.document.write(image.outerHTML);
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped(newSkipped);
   };
 
-  const [current, setCurrent] = useState(0);
-  const onStepChange = (value) => {
-    console.log('onStepChange:', current);
-    setCurrent(value);
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleSkip = () => {
+    if (!isStepOptional(activeStep)) {
+      // You probably want to guard against something like this,
+      // it should never occur unless someone's actively trying to break something.
+      throw new Error("You can't skip a step that isn't optional.");
+    }
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped((prevSkipped) => {
+      const newSkipped = new Set(prevSkipped.values());
+      newSkipped.add(activeStep);
+      return newSkipped;
+    });
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
   };
 
   return (
-    <div className="flex flex-col items-center bg-gray-50 border py-20 gap-10">
-      <Steps current={current} onChange={onStepChange} className="px-5">
-        <Step title="Basic Info" description="Basic user information" />
-        <Step title="Company Info" description="Company information" />
-        <Step title="Profile Setting" description="Privacy setting" />
-      </Steps>
+    <section className="my-10 mx-1 py-5 px-3 border-2 rounded-md sm:mx-10">
+      <Box sx={{ width: '100%' }}>
+        <Stepper activeStep={activeStep}>
+          {steps.map((label, index) => {
+            const stepProps = {};
+            const labelProps = {};
+            if (isStepOptional(index)) {
+              labelProps.optional = (
+                <Typography variant="caption">Optional</Typography>
+              );
+            }
+            if (isStepSkipped(index)) {
+              stepProps.completed = false;
+            }
+            return (
+              <Step key={label} {...stepProps}>
+                <StepLabel {...labelProps}>{label}</StepLabel>
+              </Step>
+            );
+          })}
+        </Stepper>
+        {activeStep === steps.length ? (
+          <>
+            <Typography sx={{ mt: 2, mb: 1 }}>
+              All steps completed - you&apos;re finished
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+              <Box sx={{ flex: '1 1 auto' }} />
+              <Button onClick={handleReset}>Reset</Button>
+            </Box>
+          </>
+        ) : (
+          <>
+            <Box className="flex pt-5 px-10">
+              <UserInfoDetailForm />
+            </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+              <Button
+                color="inherit"
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                sx={{ mr: 1 }}
+              >
+                Back
+              </Button>
+              <Box sx={{ flex: '1 1 auto' }} />
+              {isStepOptional(activeStep) && (
+                <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+                  Skip
+                </Button>
+              )}
 
-      <Card title="User Information Registration" bordered className="w-[90%] mx-3">
-        <Form
-          name="basic"
-          labelCol={{
-            span: 4,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
-          initialValues={{
-            remember: true,
-          }}
-          size="large"
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Form.Item
-            label="Country"
-            name="country"
-            rules={[
-              {
-                required: true,
-                message: 'Please choose your country',
-              },
-            ]}
-          >
-            <Select
-              showSearch
-              placeholder="Search to Select"
-              optionFilterProp="children"
-              filterOption={(input, option) => option.children.includes(input)}
-              filterSort={
-                (optionA, optionB) => optionA.children.toLowerCase()
-                  .localeCompare(optionB.children.toLowerCase())
-              }
-              style={{ maxWidth: 300 }}
-            >
-              {COUNTRY_LIST.map((item) => (
-                <Option
-                  key={item.code}
-                >
-                  {item.name}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-          <Form.Item
-            label="City"
-            name="city"
-            rules={[
-              {
-                required: true,
-                message: 'Please select country',
-              },
-            ]}
-          >
-            <Input
-              placeholder="Enter city name..."
-              className="border-gray-300 outline-none focus:border focus:border-main focus:ring-0"
-              style={{
-                width: 250,
-              }}
-            />
-          </Form.Item>
-          <Form.Item
-            label="Sub City"
-            name="sub_city"
-          >
-            <Input
-              placeholder="Enter sub city name..."
-              className="border-gray-300 outline-none focus:border focus:border-main focus:ring-0"
-              style={{ width: 250 }}
-            />
-          </Form.Item>
-          <Form.Item
-            label="ID Type"
-            name="id_type"
-            rules={[
-              {
-                required: true,
-                message: 'Please select id type',
-              },
-            ]}
-          >
-            <Select
-              placeholder="Select ID Type"
-              style={{ width: 200 }}
-            >
-              <Option value="Kebele ID">National ID</Option>
-              <Option value="Passport">Passport</Option>
-              <Option value="Driver License">Driver License</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item
-            label="ID Image"
-            name="id_card"
-            rules={[
-              {
-                required: true,
-                message: 'Please upload your image',
-              },
-            ]}
-          >
-            <ImgCrop rotate>
-              <Upload
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                listType="picture-card"
-                fileList={fileList}
-                onChange={onChange}
-                onPreview={onPreview}
-              >
-                {fileList.length < 1 && '+ Upload'}
-              </Upload>
-            </ImgCrop>
-          </Form.Item>
-          <Form.Item
-            label="Profile Image"
-            name="profile_image"
-            rules={[
-              {
-                required: true,
-                message: 'Please upload your image',
-              },
-            ]}
-          >
-            <ImgCrop rotate>
-              <Upload
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                listType="picture-card"
-                fileList={profileImageList}
-                onChange={onProfileChange}
-                onPreview={onPreview}
-              >
-                {profileImageList.length < 1 && '+ Upload'}
-              </Upload>
-            </ImgCrop>
-          </Form.Item>
-          <Form.Item
-            label="Date of Birth"
-            name="dob"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter date of birth',
-              },
-            ]}
-          >
-            <DatePicker
-              disabledDate={disabledDate}
-            />
-          </Form.Item>
-          <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
-            <Button htmlType="submit" className="border-2 border-main mt-5 hover:bg-main hover:text-white">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </Card>
-    </div>
+              <Button onClick={handleNext}>
+                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+              </Button>
+            </Box>
+          </>
+        )}
+      </Box>
+    </section>
   );
 }
