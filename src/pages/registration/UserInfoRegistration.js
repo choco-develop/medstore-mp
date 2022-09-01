@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -7,19 +8,33 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import UserInfoDetailForm from '../../components/register-form/UserInfoDetailForm';
+import userInforDetail from '../../redux/actions/user_info';
+import { USER_INFO_REG_REQUEST } from '../../redux/actions/type';
 
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+const steps = ['User Information', 'Company Information', 'Payment Method'];
 
 export default function UserInfoRegistration() {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
+  const [activeStep, setActiveStep] = useState(0);
+  const [skipped, setSkipped] = useState(new Set());
+  const dispatch = useDispatch();
+  const { message, loading } = useSelector((state) => state.userInfo);
 
   const isStepOptional = (step) => step === 1;
 
   const isStepSkipped = (step) => skipped.has(step);
 
+  const submitUserInfo = (data) => {
+    dispatch({
+      type: USER_INFO_REG_REQUEST,
+    });
+    dispatch(userInforDetail(data));
+    console.log('message', message);
+    console.log('laoding', loading);
+  };
+
   const handleNext = () => {
     let newSkipped = skipped;
+
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
@@ -87,7 +102,7 @@ export default function UserInfoRegistration() {
         ) : (
           <>
             <Box className="flex pt-5 px-10">
-              <UserInfoDetailForm />
+              <UserInfoDetailForm submitUserInfo={submitUserInfo} />
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
               <Button
