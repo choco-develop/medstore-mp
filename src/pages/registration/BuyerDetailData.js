@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -8,16 +8,24 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import UserInfoDetailForm from '../../components/register-form/UserInfoDetailForm';
+import CompanyInformation from '../../components/register-form/CompanyInformation';
 import userInforDetail from '../../redux/actions/user_info';
 import { USER_INFO_REG_REQUEST } from '../../redux/actions/type';
 
 const steps = ['User Information', 'Company Information', 'Payment Method'];
 
-export default function UserInfoRegistration() {
-  const [activeStep, setActiveStep] = useState(0);
+export default function BuyerDetailData() {
+  const userForm = useRef();
+  const [activeStep, setActiveStep] = useState(1);
   const [skipped, setSkipped] = useState(new Set());
   const dispatch = useDispatch();
   const { message, loading } = useSelector((state) => state.userInfo);
+  console.log('At loading', message);
+  const [userFormMessage, setUserFormMessage] = useState(null);
+  useEffect(() => {
+    setUserFormMessage(message);
+    console.log('There is a change', message);
+  }, [message]);
 
   const isStepOptional = (step) => step === 1;
 
@@ -28,8 +36,6 @@ export default function UserInfoRegistration() {
       type: USER_INFO_REG_REQUEST,
     });
     dispatch(userInforDetail(data));
-    console.log('message', message);
-    console.log('laoding', loading);
   };
 
   const handleNext = () => {
@@ -39,9 +45,17 @@ export default function UserInfoRegistration() {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
     }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
+    if (activeStep === 0) {
+      userForm.current.submitUserData();
+      console.log('handleNext() step==0', userFormMessage);
+      if (Object.hasOwn(userFormMessage, 'err') && !userFormMessage.err) {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        setSkipped(newSkipped);
+      }
+    } else {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      setSkipped(newSkipped);
+    }
   };
 
   const handleBack = () => {
@@ -68,7 +82,7 @@ export default function UserInfoRegistration() {
   };
 
   return (
-    <section className="my-10 mx-1 py-5 px-3 border-2 rounded-md sm:mx-10">
+    <section className="my-10 mx-1 py-5 px-3 sm:mx-10">
       <Box sx={{ width: '100%' }}>
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
@@ -101,8 +115,13 @@ export default function UserInfoRegistration() {
           </>
         ) : (
           <>
-            <Box className="flex pt-5 px-10">
-              <UserInfoDetailForm submitUserInfo={submitUserInfo} />
+            <Box className="flex pt-5 pl-10">
+              {activeStep === 0 && (
+                <UserInfoDetailForm ref={userForm} submitUserInfo={submitUserInfo} />
+              )}
+              {activeStep === 1 && (
+                <CompanyInformation />
+              )}
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
               <Button
@@ -120,7 +139,7 @@ export default function UserInfoRegistration() {
                 </Button>
               )}
 
-              <Button onClick={handleNext}>
+              <Button onClick={handleNext} disabled={loading}>
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
             </Box>
