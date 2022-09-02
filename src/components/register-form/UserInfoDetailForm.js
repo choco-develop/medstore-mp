@@ -1,23 +1,27 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useRef } from 'react';
+import React, {
+  useState, useRef, forwardRef, useImperativeHandle,
+} from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
+import { FormControl } from '@mui/material';
 import { useSelector } from 'react-redux';
 import Select from '@mui/material/Select';
 import PropTypes from 'prop-types';
 import countries from '../../data/country';
 
-function UserInfoDetailForm({ submitUserInfo }) {
+// const UserInfoDetailForm = ({ submitUserInfo }) {
+const UserInfoDetailForm = forwardRef((props, ref) => {
   const form = useRef();
-  const { loading } = useSelector((state) => state.userInfo);
+  const { message } = useSelector((state) => state.userInfo);
   const [country, setCountry] = useState(null);
   const [idImage, setIdImage] = useState(null);
   const [dbo, setDBO] = useState(null);
@@ -25,6 +29,21 @@ function UserInfoDetailForm({ submitUserInfo }) {
   const [idType, setIDType] = useState('');
   const [city, setCity] = useState('');
   const [subCity, setSubCity] = useState('');
+
+  useImperativeHandle(ref, () => ({
+    submitUserData() {
+      const allValues = {
+        country,
+        city,
+        sub_city: subCity,
+        dbo,
+        id_type: idType,
+        id_card: idImage,
+        profile_image: profileImage,
+      };
+      props.submitUserInfo(allValues);
+    },
+  }));
 
   const handleCountryChange = (e, value) => {
     setCountry(value);
@@ -44,22 +63,32 @@ function UserInfoDetailForm({ submitUserInfo }) {
     setProfileImage(profileImageData);
   };
 
-  const handlFormSubmit = (e) => {
-    e.preventDefault();
-    const allValues = {
-      country,
-      city,
-      sub_city: subCity,
-      dbo,
-      id_type: idType,
-      idImage,
-      profileImage,
-    };
-    submitUserInfo(allValues);
-  };
-
   return (
-    <form className="flex flex-col gap-y-8 py-10" ref={form} onSubmit={handlFormSubmit}>
+    <form className="flex flex-col gap-y-8 bg-white py-10 pl-5 w-full border-2 rounded-md" ref={form}>
+      { message && message.err && (
+        <div className="flex w-full">
+          <Alert severity="error" sx={{ width: '75%' }}>
+            <AlertTitle>Error</AlertTitle>
+            {message.msg}
+            —
+            <strong>check it out!</strong>
+            {message.form_errors && (
+              <ul className="mt-3 ml-2 list-decimal">
+                {
+                  Object.entries(message.form_errors).map((key) => (
+                    <li key={`${key}and}`} className="flex gap-x-2">
+                      <span>
+                        {`${key[0].split('_').join(' ').toUpperCase()}:`}
+                      </span>
+                      <p>{key[1]}</p>
+                    </li>
+                  ))
+                }
+              </ul>
+            )}
+          </Alert>
+        </div>
+      )}
       <div className="flex">
         <Autocomplete
           id="country-select-demo"
@@ -130,9 +159,9 @@ function UserInfoDetailForm({ submitUserInfo }) {
             required
           >
             <MenuItem value="" disabled>Select ID Type</MenuItem>
-            <MenuItem value="kebele_id">National ID</MenuItem>
-            <MenuItem value="passport">Passport</MenuItem>
-            <MenuItem value="driving_license">Driver License</MenuItem>
+            <MenuItem value="Kebel ID">National ID</MenuItem>
+            <MenuItem value="Passport">Passport</MenuItem>
+            <MenuItem value="Driver License">Driver License</MenuItem>
           </Select>
         </FormControl>
       </div>
@@ -144,17 +173,12 @@ function UserInfoDetailForm({ submitUserInfo }) {
         <span className="text-gray-600">Profile Image</span>
         <input type="file" onChange={profileImageSelectHandler} accept="application/pdf, image/png, image/jpeg" />
       </div>
-      <div>
-        <Button type="submit" variant="contained" disabled={loading}>
-          Save
-        </Button>
-      </div>
     </form>
   );
-}
+});
 
 UserInfoDetailForm.propTypes = {
   submitUserInfo: PropTypes.func.isRequired,
 };
-
+UserInfoDetailForm.displayName = 'UserInfoDetailForm';
 export default UserInfoDetailForm;

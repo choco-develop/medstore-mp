@@ -5,7 +5,7 @@ import {
 } from '../actions/type';
 
 const INIT_STATE = {
-  message: null,
+  message: 'first state',
   loading: false,
 };
 

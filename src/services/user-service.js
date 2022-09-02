@@ -8,15 +8,16 @@ function getAuthUserDetail() {
   });
 }
 
-const userInfoReg = (data) => axios.post(`${API_URL}/accounts/user_info_reg/`, data,
-  {
-    headers: {
-      'content-type': 'multipart/form-data',
-      Authorization: authHeader(),
-    },
-  })
-  .then((res) => Promise.resolve(res))
-  .catch((err) => Promise.reject(err));
+const headers = {
+  'content-type': 'multipart/form-data',
+  Authorization: authHeader(),
+};
+
+const userInfoReg = (data) => axios.post(
+  `${API_URL}/accounts/user_info_reg/`,
+  data,
+  { headers },
+).then((res) => Promise.resolve(res)).catch((err) => Promise.reject(err));
 
 export default {
   getAuthUserDetail,
