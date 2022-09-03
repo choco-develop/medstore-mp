@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -21,11 +21,6 @@ export default function BuyerDetailData() {
   const dispatch = useDispatch();
   const { message, loading } = useSelector((state) => state.userInfo);
   console.log('At loading', message);
-  const [userFormMessage, setUserFormMessage] = useState(null);
-  useEffect(() => {
-    setUserFormMessage(message);
-    console.log('There is a change', message);
-  }, [message]);
 
   const isStepOptional = (step) => step === 1;
 
@@ -47,8 +42,7 @@ export default function BuyerDetailData() {
     }
     if (activeStep === 0) {
       userForm.current.submitUserData();
-      console.log('handleNext() step==0', userFormMessage);
-      if (Object.hasOwn(userFormMessage, 'err') && !userFormMessage.err) {
+      if (Object.hasOwn(message, 'err') && !message.err) {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         setSkipped(newSkipped);
       }
