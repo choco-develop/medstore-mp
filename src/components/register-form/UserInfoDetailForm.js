@@ -1,52 +1,87 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, {
-  useState, useRef, forwardRef, useImperativeHandle,
+  useState, useEffect,
 } from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
+import {
+  Box, TextField, Autocomplete, Alert, AlertTitle,
+  InputLabel, MenuItem, Select, FormControl, FormHelperText,
+  Radio, RadioGroup, FormControlLabel, FormLabel,
+} from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import { FormControl } from '@mui/material';
 import { useSelector } from 'react-redux';
-import Select from '@mui/material/Select';
 import PropTypes from 'prop-types';
 import countries from '../../data/country';
+import { EthioState, AddisSubCity } from '../../data/EthioStateCity';
+import API_URL from '../../services/index';
+import authHeader from '../../services/auth-header';
 
-// const UserInfoDetailForm = ({ submitUserInfo }) {
-const UserInfoDetailForm = forwardRef((props, ref) => {
-  const form = useRef();
+const UserInfoDetailForm = (props) => {
   const { message } = useSelector((state) => state.userInfo);
   const [country, setCountry] = useState(null);
   const [idImage, setIdImage] = useState(null);
   const [dbo, setDBO] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
-  const [idType, setIDType] = useState('');
+  const [idType, setIdType] = useState('');
   const [city, setCity] = useState('');
   const [subCity, setSubCity] = useState('');
+  const [isLocal, setIsLocal] = useState(false);
+  const [isInAddis, setIsInAddis] = useState(false);
+  const [idTypes, setIdTypes] = useState([]);
+  const headers = {
+    'content-type': 'application/json',
+    Authorization: authHeader(),
+  };
 
-  useImperativeHandle(ref, () => ({
-    submitUserData() {
-      const allValues = {
-        country,
-        city,
-        sub_city: subCity,
-        dbo,
-        id_type: idType,
-        id_card: idImage,
-        profile_image: profileImage,
-      };
-      props.submitUserInfo(allValues);
-    },
-  }));
+  useEffect(() => {
+    fetch(`${API_URL}/accounts/user_info_reg/`, { headers })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`This is an HTTP error: The status is ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((actualData) => {
+        console.log(actualData);
+        const { user_info: userInfo } = actualData;
+        setIdTypes(actualData.id_types);
+        userInfo.city === 'Addis Ababa' ? setIsInAddis(true) : setIsInAddis(false); //eslint-disable-line
+        setDBO(userInfo.dbo);
+        setIdType(userInfo.id_type);
+        setCity(userInfo.city);
+        setSubCity(userInfo.sub_city);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  const handleFromSubmit = (e) => {
+    e.preventDefault();
+    const allValues = {
+      country,
+      city,
+      sub_city: subCity,
+      dbo,
+      id_type: idType,
+      id_card: idImage,
+      profile_image: profileImage,
+    };
+    props.submitUserInfo(allValues); //eslint-disable-line
+  };
 
   const handleCountryChange = (e, value) => {
+    console.log(value);
     setCountry(value);
+    subCity === 'Addis Ababa' ? setIsInAddis(true) : setIsInAddis(false); //eslint-disable-line
+    value.label === 'Ethiopia' ? setIsLocal(true) : setIsLocal(false); //eslint-disable-line
+  };
+
+  const handleCityChange = (e) => {
+    const val = e.target.value;
+    setCity(val);
+    val === 'Addis Ababa' ? setIsInAddis(true) : setIsInAddis(false); //eslint-disable-line
   };
 
   const idCardImageSelectHandler = (e) => {
@@ -64,7 +99,7 @@ const UserInfoDetailForm = forwardRef((props, ref) => {
   };
 
   return (
-    <form className="flex flex-col gap-y-8 bg-white py-10 pl-5 w-full border-2 rounded-md" ref={form}>
+    <form className="flex flex-col gap-y-8 bg-white py-10 pl-5 w-full border-2 rounded-md" id="user-detail" onSubmit={handleFromSubmit}>
       { message && message.err && (
         <div className="flex w-full">
           <Alert severity="error" sx={{ width: '75%' }}>
@@ -90,10 +125,22 @@ const UserInfoDetailForm = forwardRef((props, ref) => {
         </div>
       )}
       <div className="flex">
+        <FormControl>
+          <FormLabel id="demo-row-radio-buttons-group-label" className="mb-3">User Type</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+          >
+            <FormControlLabel value="Individual" control={<Radio />} label="Individual" />
+            <FormControlLabel value="Company" control={<Radio />} label="Company" />
+          </RadioGroup>
+        </FormControl>
+      </div>
+      <div className="flex">
         <Autocomplete
           id="country-select-demo"
           name="country"
-          size="small"
           value={country}
           sx={{ width: 300 }}
           options={countries}
@@ -126,10 +173,47 @@ const UserInfoDetailForm = forwardRef((props, ref) => {
         />
       </div>
       <div className="flex">
-        <TextField id="city" label="City" variant="outlined" size="small" onChange={(e) => setCity(e.target.value)} required />
+        {isLocal && (
+          <FormControl className="w-1/3">
+            <InputLabel id="demo-simple-select-label">City</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={city}
+              label="City"
+              onChange={handleCityChange}
+            >
+              {EthioState.map((val) => (
+                <MenuItem value={val} key={val}>{val}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
+        {!isLocal && (
+          <TextField id="city" label="City" value={city} variant="outlined" required />
+        )}
       </div>
       <div className="flex">
-        <TextField id="sub_city" label="Sub City" variant="outlined" size="small" onChange={(e) => setSubCity(e.target.value)} required />
+        {isInAddis && (
+          <FormControl className="w-1/3">
+            <InputLabel id="demo-simple-select-label">Sub City</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={subCity}
+              label="Sub City"
+              onChange={(e) => setSubCity(e.target.value)}
+              required
+            >
+              {AddisSubCity.map((val) => (
+                <MenuItem value={val} key={val}>{val}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
+        {!isInAddis && (
+          <TextField id="subCity" label="Sub City" variant="outlined" value={subCity} onChange={(e) => setSubCity(e.target.value)} required />
+        )}
       </div>
       <div className="flex">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -139,7 +223,6 @@ const UserInfoDetailForm = forwardRef((props, ref) => {
             onChange={(value) => setDBO(value)}
             renderInput={(params) => (
               <TextField
-                size="small"
                 {...params}
                 required
               />
@@ -148,34 +231,35 @@ const UserInfoDetailForm = forwardRef((props, ref) => {
         </LocalizationProvider>
       </div>
       <div className="flex">
-        <FormControl sx={{ minWidth: 200 }} size="small">
-          <InputLabel id="idTypeLabel">ID Type</InputLabel>
+        <FormControl className="w-1/3">
+          <InputLabel id="id-type-select-label">ID Type</InputLabel>
           <Select
-            labelId="idTypeLabel"
-            id="idType"
-            label="ID Type"
+            labelId="id-type-select-label"
+            id="id-type-select"
             value={idType}
-            onChange={(e) => setIDType(e.target.value)}
+            label="ID Type"
+            onChange={(e) => setIdType(e.target.value)}
             required
           >
-            <MenuItem value="" disabled>Select ID Type</MenuItem>
-            <MenuItem value="Kebel ID">National ID</MenuItem>
-            <MenuItem value="Passport">Passport</MenuItem>
-            <MenuItem value="Driver License">Driver License</MenuItem>
+            {idTypes.map((value) => (
+              <MenuItem value={value[1]} key={value[1]}>{value[1]}</MenuItem>
+            ))}
           </Select>
         </FormControl>
       </div>
       <div className="flex flex-col gap-1">
         <span className="text-gray-600">ID Card</span>
-        <input type="file" onChange={idCardImageSelectHandler} accept="application/pdf, image/png, image/jpeg" required />
+        <input type="file" onChange={idCardImageSelectHandler} accept="application/pdf, image/png, image/jpeg" className="w-1/3" />
+        <FormHelperText>Accepted inputs: image-png,jpg,jpeg PDF-pdf, docx</FormHelperText>
       </div>
       <div className="flex flex-col gap-1">
         <span className="text-gray-600">Profile Image</span>
-        <input type="file" onChange={profileImageSelectHandler} accept="application/pdf, image/png, image/jpeg" />
+        <input type="file" onChange={profileImageSelectHandler} accept="application/pdf, image/png, image/jpeg" className="w-1/3" />
+        <FormHelperText>Accepted inputs: image-png,jpg,jpeg PDF-pdf, docx</FormHelperText>
       </div>
     </form>
   );
-});
+};
 
 UserInfoDetailForm.propTypes = {
   submitUserInfo: PropTypes.func.isRequired,
