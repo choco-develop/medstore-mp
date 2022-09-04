@@ -9,7 +9,7 @@ const INIT_STATE = {
   loading: false,
 };
 
-function USER_INFO(state = INIT_STATE, action) {
+export default function USER_INFO(state = INIT_STATE, action) {
   const { payload, type } = action;
   switch (type) {
     case USER_INFO_REG_REQUEST:
@@ -34,5 +34,3 @@ function USER_INFO(state = INIT_STATE, action) {
       return state;
   }
 }
-
-export default USER_INFO;
