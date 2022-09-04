@@ -4,7 +4,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../redux/actions/auth';
-import MainLogo from '../../assets/images/colored-logo.png';
+import MainLogo from '../../assets/images/Logo-New.png';
 import MobileNav from './mobile-nav';
 import navMenuContext from '../../contexts/navigationMenuContext';
 
@@ -57,7 +57,7 @@ export default function Header() {
         </div>
       </div>
       <div className="flex p-2 flex-wrap gap-y-2 bg-main">
-        <div className="flex gap-2">
+        <Link to="/" className="flex gap-2">
           <div
             className="flex relative w-[55px]
                     sm:w-[100px] md:w-[100px]
@@ -82,7 +82,7 @@ export default function Header() {
             </div>
           </div>
           <h2 className="text-white font-bold self-center font-serif">Medstore.et</h2>
-        </div>
+        </Link>
         <div className="flex-1 flex items-center justify-end">
           <ul className="flex w-full justify-end gap-x-4 px-3 items-center text-white xs:justify-end">
             <li className="xs:hidden md:block">
