@@ -2,17 +2,20 @@
 import React, { useState } from 'react';
 import {
   InputLabel, MenuItem, FormControl, Select,
-  Autocomplete, Box, TextField,
+  Autocomplete, Box, TextField, FormHelperText,
 } from '@mui/material';
 import { MuiTelInput, matchIsValidTel } from 'mui-tel-input';
 import countries from '../../data/country';
-// import EthioState from '../../data/EthioState';
+import { EthioState, AddisSubCity } from '../../data/EthioStateCity';
 
 export default function CompanyInformation() {
   const [phone, setPhone] = useState('+251');
   const [country, setCountry] = useState(null);
   const [city, setCity] = useState(null);
+  const [subCity, setSubCity] = useState(null);
   const [isLocal, setIsLocal] = useState(false);
+  const [isInAddis, setIsInAddis] = useState(false);
+
   const handleChange = (newPhone) => {
     console.log('is valid', matchIsValidTel(newPhone)); // boolean
     setPhone(newPhone);
@@ -20,12 +23,14 @@ export default function CompanyInformation() {
 
   const handleCountry = (e, v) => {
     setCountry(v);
-    console.log('Country value is: ', v);
+    subCity === 'Addis Ababa' ? setIsInAddis(true) : setIsInAddis(false); //eslint-disable-line
     v.label === 'Ethiopia' ? setIsLocal(true) : setIsLocal(false); //eslint-disable-line
   };
 
   const handleCityChange = (e) => {
-    setCity(e.target.value);
+    const val = e.target.value;
+    setCity(val);
+    val === 'Addis Ababa' ? setIsInAddis(true) : setIsInAddis(false); //eslint-disable-line
   };
 
   return (
@@ -50,14 +55,17 @@ export default function CompanyInformation() {
       <div className="flex flex-col gap-1">
         <span className="text-gray-600">Trader Registration Document</span>
         <input type="file" accept="application/pdf, image/*" />
+        <FormHelperText>Accepted inputs: image-png,jpg,jpeg PDF-pdf, docx</FormHelperText>
       </div>
       <div className="flex flex-col gap-1">
         <span className="text-gray-600">Trade License</span>
         <input type="file" accept="application/pdf, image/*" />
+        <FormHelperText>Accepted inputs: image-png,jpg,jpeg PDF-pdf, docx</FormHelperText>
       </div>
       <div className="flex flex-col gap-1">
         <span className="text-gray-600">Trade License</span>
         <input type="file" accept="application/pdf, image/*" />
+        <FormHelperText>Accepted inputs: image-png,jpg,jpeg PDF-pdf, docx</FormHelperText>
       </div>
       <div className="flex">
         <Autocomplete
@@ -104,9 +112,9 @@ export default function CompanyInformation() {
               label="City"
               onChange={handleCityChange}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {EthioState.map((val) => (
+                <MenuItem value={val} key={val}>{val}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         )}
@@ -115,7 +123,25 @@ export default function CompanyInformation() {
         )}
       </div>
       <div className="flex">
-        <TextField id="sub_city" label="Sub City" variant="outlined" required />
+        {isInAddis && (
+          <FormControl className="w-1/3">
+            <InputLabel id="demo-simple-select-label">City</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={subCity}
+              label="Sub City"
+              onChange={(e) => setSubCity(e.target.value)}
+            >
+              {AddisSubCity.map((val) => (
+                <MenuItem value={val} key={val}>{val}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
+        {!isInAddis && (
+          <TextField id="subCity" label="Sub City" variant="outlined" onChange={(e) => setSubCity(e.target.value)} required />
+        )}
       </div>
       <div className="flex">
         <MuiTelInput value={phone} onChange={handleChange} placeholder="xxxx" />
