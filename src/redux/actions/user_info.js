@@ -6,9 +6,6 @@ import userService from '../../services/user-service';
 
 const userInforDetail = (data) => (dispatch) => userService.userInfoReg(data).then(
   (res) => {
-    console.log('Success', res);
-    console.log('has property', Object.hasOwn(res, 'data'));
-    console.log('err status', !res.data.err);
     if (Object.hasOwn(res, 'data') && !res.data.err) {
       dispatch({
         type: USER_INFO_REG_SUCCESS,
@@ -23,7 +20,6 @@ const userInforDetail = (data) => (dispatch) => userService.userInfoReg(data).th
     return Promise.resolve(res);
   },
   (err) => {
-    console.log('Servor Error', err);
     if (err.response.status === 401) {
       dispatch({
         type: USER_INFO_REG_FAILER,
