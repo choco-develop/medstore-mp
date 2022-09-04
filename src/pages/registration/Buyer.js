@@ -85,15 +85,15 @@ export default function Buyer() {
               sm:my-16 sm:mx-16 sm:pt-4 sm:px-4"
     >
       <div className="flex flex-col bg-white w-full rounded-2xl border border-main md:w-[90%] lg:w-[100%] lg:border-none xl:w-[100%]">
+        <div className="text-center pt-5">
+          <h1 className="font-serif text-lg leading-10 font-medium text-gray-600">Register</h1>
+        </div>
         <form
-          className="flex flex-col gap-5 p-3 md:mx-auto md:w-3/4 lg:w-1/2 xl:w-[90%]"
+          className="flex flex-col gap-5 p-3 md:mx-auto md:w-[60%] lg:w-1/2 xl:w-[60%]"
           type="multipart/form-data"
           onSubmit={handleRegister}
           ref={form}
         >
-          <div className="">
-            <h1 className="font-serif text-lg leading-10 font-medium text-gray-600">Register</h1>
-          </div>
           {
             message && (
               <ul className="flex flex-col px-3 list-inside text-red-500 justify-center list-decimal">
