@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -15,12 +16,13 @@ import { USER_INFO_REG_REQUEST } from '../../redux/actions/type';
 const steps = ['User Information', 'Company Information', 'Payment Method'];
 
 export default function BuyerDetailData() {
-  const userForm = useRef();
-  const [activeStep, setActiveStep] = useState(1);
+  const formList = ['user-detail', 'company-detail'];
+  const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { message, loading } = useSelector((state) => state.userInfo);
-  console.log('At loading', message);
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   const isStepOptional = (step) => step === 1;
 
@@ -33,24 +35,29 @@ export default function BuyerDetailData() {
     dispatch(userInforDetail(data));
   };
 
-  const handleNext = () => {
-    let newSkipped = skipped;
+  if (!isLoggedIn) {
+    navigate('/login');
+  }
 
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
-    if (activeStep === 0) {
-      userForm.current.submitUserData();
-      if (Object.hasOwn(message, 'err') && !message.err) {
+  useEffect(() => {
+    if (message) {
+      let newSkipped = skipped;
+
+      if (isStepSkipped(activeStep)) {
+        newSkipped = new Set(newSkipped.values());
+        newSkipped.delete(activeStep);
+      }
+      if (activeStep === 0) {
+        if (Object.hasOwn(message, 'err') && !message.err) {
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+          setSkipped(newSkipped);
+        }
+      } else {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         setSkipped(newSkipped);
       }
-    } else {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      setSkipped(newSkipped);
     }
-  };
+  }, [message]);
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -111,7 +118,7 @@ export default function BuyerDetailData() {
           <>
             <Box className="flex pt-5 pl-10">
               {activeStep === 0 && (
-                <UserInfoDetailForm ref={userForm} submitUserInfo={submitUserInfo} />
+                <UserInfoDetailForm submitUserInfo={submitUserInfo} />
               )}
               {activeStep === 1 && (
                 <CompanyInformation />
@@ -133,7 +140,7 @@ export default function BuyerDetailData() {
                 </Button>
               )}
 
-              <Button onClick={handleNext} disabled={loading}>
+              <Button disabled={loading} form={formList[activeStep]} type="submit">
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
             </Box>
