@@ -14,8 +14,8 @@ export default function NewsArticle() {
         className="flex flex-wrap
                   xs:gap-y-3
                   md:justify-between
-                  lg:justify-evenly
-                  xl:justify-start xl:gap-3"
+                  lg:justify-between
+                  xl:justify-between xl:gap-3"
       >
         {
           NewsArticleComponent
