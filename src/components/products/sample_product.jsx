@@ -12,9 +12,9 @@ export default function sampleProducts() {
       >
         <div className="mb-3">
           <div className="relative flex py-5 items-center">
-            <div className="grow w-[10%] border" />
+            <div className="grow w-[2%] border" />
             <span className="flex-none mx-2 text-main font-serif">Top Products</span>
-            <div className="grow w-[70%] border" />
+            <div className="grow w-[83%] border" />
           </div>
         </div>
         <div className="flex gap-3
@@ -28,9 +28,9 @@ export default function sampleProducts() {
       <div id="recentProducts" className="flex flex-col p-5 border my-5 shadow-sm bg-white">
         <div className="mb-3">
           <div className="relative flex py-5 items-center">
-            <div className="grow w-[10%] border" />
+            <div className="grow w-[2%] border" />
             <span className="flex-none mx-2 text-main font-serif">Recent Products</span>
-            <div className="grow w-[70%] border" />
+            <div className="grow w-[83%] border" />
           </div>
         </div>
         <div className="flex gap-3
