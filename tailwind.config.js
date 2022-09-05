@@ -10,6 +10,7 @@ module.exports = {
       top: '#006F98',
       temp: '#89E2FF',
       busy: '#1a8bb582',
+      muifocus: '#1c64f2',
     },
     screens: {
       xs: '329px',
