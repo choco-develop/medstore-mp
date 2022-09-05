@@ -30,7 +30,7 @@ function App() {
                   <Route path="login" element={<LoginPage />} />
                   <Route path="buyer/sign-up" element={<BuyerRegister />} />
                   <Route path="buyer/account-activate" element={<BuyerActivate />} />
-                  <Route path="accounts/user_info_reg" element={<BuyerDetailData />} />
+                  <Route path="accounts/user-info-reg" element={<BuyerDetailData />} />
                 </Routes>
               </Router>
               <Footer />
