@@ -17,7 +17,7 @@ const steps = ['User Information', 'Company Information', 'Payment Method'];
 
 export default function BuyerDetailData() {
   const formList = ['user-detail', 'company-detail'];
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(1);
   const [skipped, setSkipped] = useState(new Set());
   const dispatch = useDispatch();
   const navigate = useNavigate();
