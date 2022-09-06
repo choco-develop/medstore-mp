@@ -10,8 +10,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import UserInfoDetailForm from '../../components/register-form/UserInfoDetailForm';
 import CompanyInformation from '../../components/register-form/CompanyInformation';
-import userInforDetail from '../../redux/actions/user_info';
-import { USER_INFO_REG_REQUEST } from '../../redux/actions/type';
+import userInforDetail, { companyInfo } from '../../redux/actions/user_info';
+import { USER_INFO_REG_REQUEST, COMPANY_INFO_REG_REQUEST } from '../../redux/actions/type';
 
 const steps = ['User Information', 'Company Information', 'Payment Method'];
 
@@ -21,7 +21,9 @@ export default function BuyerDetailData() {
   const [skipped, setSkipped] = useState(new Set());
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { message, loading } = useSelector((state) => state.userInfo);
+  const {
+    message, loading, companyMessage, companyLoading,
+  } = useSelector((state) => state.userInfo);
   const { isLoggedIn } = useSelector((state) => state.auth);
 
   const isStepOptional = (step) => step === 1;
@@ -35,20 +37,28 @@ export default function BuyerDetailData() {
     dispatch(userInforDetail(data));
   };
 
+  const submitCompanyInfo = (data) => {
+    dispatch({
+      type: COMPANY_INFO_REG_REQUEST,
+    });
+    dispatch(companyInfo(data));
+  };
+
   if (!isLoggedIn) {
     navigate('/login');
   }
 
   useEffect(() => {
-    if (message) {
+    const msg = message || companyMessage;
+    if (msg) {
       let newSkipped = skipped;
 
       if (isStepSkipped(activeStep)) {
         newSkipped = new Set(newSkipped.values());
         newSkipped.delete(activeStep);
       }
-      if (activeStep === 0) {
-        if (Object.hasOwn(message, 'err') && !message.err) {
+      if (activeStep === 1) {
+        if (Object.hasOwn(msg, 'err') && !msg.err) {
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
           setSkipped(newSkipped);
         }
@@ -57,7 +67,7 @@ export default function BuyerDetailData() {
         setSkipped(newSkipped);
       }
     }
-  }, [message]);
+  }, [message, companyMessage]);
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -121,7 +131,7 @@ export default function BuyerDetailData() {
                 <UserInfoDetailForm submitUserInfo={submitUserInfo} />
               )}
               {activeStep === 1 && (
-                <CompanyInformation />
+                <CompanyInformation submitCompanyInfo={submitCompanyInfo} />
               )}
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
@@ -140,7 +150,7 @@ export default function BuyerDetailData() {
                 </Button>
               )}
 
-              <Button disabled={loading} form={formList[activeStep]} type="submit">
+              <Button disabled={loading || companyLoading} form={formList[activeStep]} type="submit">
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
             </Box>
