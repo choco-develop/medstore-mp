@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
@@ -8,21 +8,31 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { matchIsValidTel } from 'mui-tel-input';
 import UserInfoDetailForm from '../../components/register-form/UserInfoDetailForm';
 import CompanyInformation from '../../components/register-form/CompanyInformation';
-import userInforDetail, { companyInfo } from '../../redux/actions/user_info';
-import { USER_INFO_REG_REQUEST, COMPANY_INFO_REG_REQUEST } from '../../redux/actions/type';
+import userInforDetail from '../../redux/actions/user_info';
+import userService from '../../services/user-service';
+import { USER_INFO_REG_REQUEST } from '../../redux/actions/type';
+import { CompanyContext } from '../../contexts/CompRegContextProvider';
 
 const steps = ['User Information', 'Company Information', 'Payment Method'];
 
 export default function BuyerDetailData() {
-  const formList = ['user-detail', 'company-detail'];
-  const [activeStep, setActiveStep] = useState(1);
+  const {
+    handleChange,
+    values: {
+      message: companyMessage,
+      loading: companyLoading,
+    },
+  } = useContext(CompanyContext);
+  const formList = ['company-detail', 'user-detail'];
+  const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
-    message, loading, companyMessage, companyLoading,
+    message: userInfoMsg, loading,
   } = useSelector((state) => state.userInfo);
   const { isLoggedIn } = useSelector((state) => state.auth);
 
@@ -38,10 +48,30 @@ export default function BuyerDetailData() {
   };
 
   const submitCompanyInfo = (data) => {
-    dispatch({
-      type: COMPANY_INFO_REG_REQUEST,
+    userService.companyInfoReg(data).then(
+      (res) => {
+        const { phone_number: phone } = data;
+        if (!matchIsValidTel(phone)) {
+          const msg = {
+            err: true,
+            msg: 'Invalid input detected',
+            form_errors: {
+              phone_number: ['Invalid format or length'],
+            },
+          };
+          handleChange(msg, false);
+        } else {
+          handleChange(res, false);
+        }
+      },
+    ).catch((err) => {
+      const res = {
+        msg: `Servor Error occured: ${err.response.statusText}`,
+        err: true,
+        form_errors: {},
+      };
+      handleChange(res, false);
     });
-    dispatch(companyInfo(data));
   };
 
   if (!isLoggedIn) {
@@ -49,25 +79,24 @@ export default function BuyerDetailData() {
   }
 
   useEffect(() => {
-    const msg = message || companyMessage;
+    const stepStates = [companyMessage, userInfoMsg, null];
+    const msg = stepStates[activeStep];
+    console.log({
+      activeStep,
+      data: msg,
+    });
     if (msg) {
       let newSkipped = skipped;
-
       if (isStepSkipped(activeStep)) {
         newSkipped = new Set(newSkipped.values());
         newSkipped.delete(activeStep);
       }
-      if (activeStep === 1) {
-        if (Object.hasOwn(msg, 'err') && !msg.err) {
-          setActiveStep((prevActiveStep) => prevActiveStep + 1);
-          setSkipped(newSkipped);
-        }
-      } else {
+      if (Object.hasOwn(msg, 'err') && !msg.err && msg.msg) {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         setSkipped(newSkipped);
       }
     }
-  }, [message, companyMessage]);
+  }, [userInfoMsg, companyMessage]);
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -128,10 +157,10 @@ export default function BuyerDetailData() {
           <>
             <Box className="flex pt-5 pl-10">
               {activeStep === 0 && (
-                <UserInfoDetailForm submitUserInfo={submitUserInfo} />
+                <CompanyInformation submitCompanyInfo={submitCompanyInfo} />
               )}
               {activeStep === 1 && (
-                <CompanyInformation submitCompanyInfo={submitCompanyInfo} />
+                <UserInfoDetailForm submitUserInfo={submitUserInfo} />
               )}
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
