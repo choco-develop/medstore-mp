@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, forwardRef, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import React, {
+  useState, forwardRef, useRef, useContext,
+} from 'react';
 import { FiUpload } from 'react-icons/fi';
 import { MdDelete } from 'react-icons/md';
 import {
@@ -12,16 +13,17 @@ import MuiAlert from '@mui/material/Alert';
 import { MuiTelInput, matchIsValidTel } from 'mui-tel-input';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { CompanyContext } from '../../contexts/CompRegContextProvider';
 import countries from '../../data/country';
 import { EthioState, AddisSubCity } from '../../data/EthioStateCity';
-import { isValidImage, FormatFile } from '../../utils/FileManipulation';
+import { isValidImage } from '../../utils/FileManipulation';
 
 const Alert = forwardRef(function Alert(props, ref) { //eslint-disable-line
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function CompanyInformation(props) {
-  const { companyMessage: message } = useSelector((state) => state.userInfo);
+  const { values: { message } } = useContext(CompanyContext);
   const tradeRegDocElt = useRef();
   const tradeLicenseElt = useRef();
   const efdaCertElt = useRef();
@@ -42,7 +44,7 @@ export default function CompanyInformation(props) {
   const [fileInputs, setFileInputs] = useState({
     tradeRegDoc: null,
     tradeLicense: null,
-    efdaCertElt: null,
+    efdaCert: null,
   });
   const isValidPhone = matchIsValidTel(phone) || phone === '+251';
 
@@ -70,9 +72,8 @@ export default function CompanyInformation(props) {
         setLogoImageDir(reader.result);
       });
       reader.readAsDataURL(file);
-      setLogo(FormatFile(file));
+      setLogo(file);
     } else {
-      console.log(logo);
       setOpen(true);
     }
   };
@@ -85,7 +86,7 @@ export default function CompanyInformation(props) {
     const file = e.target.files[0];
     setFileInputs({
       ...fileInputs,
-      [e.target.name]: FormatFile(file),
+      [e.target.name]: file,
     });
   };
 
@@ -106,31 +107,30 @@ export default function CompanyInformation(props) {
       trade_reg, //eslint-disable-line
       trade_license, //eslint-disable-line
       efda_cert, //eslint-disable-line
-      state: country,
+      state: JSON.stringify(country),
       city,
       subcity: subCity,
       phone_number: phone,
     };
-    console.log(formData);
     props.submitCompanyInfo(formData); //eslint-disable-line
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full border-2 rounded-md">
       { message && message.err && (
-        <div className="flex w-full bg-white">
-          <Alert severity="error" sx={{ width: '75%' }}>
+        <div className="flex w-full px-3 pt-5">
+          <Alert variant="standard" severity="error" sx={{ width: '100%' }}>
             <AlertTitle>Error</AlertTitle>
-            {message.msg}
-            —
-            <strong>check it out!</strong>
+            {`${message.msg}: `}
+
+            <strong>Check it out!</strong>
             {message.form_errors && (
               <ul className="mt-3 ml-2 list-decimal">
                 {
                   Object.entries(message.form_errors).map((key) => (
                     <li key={`${key}and}`} className="flex gap-x-2">
-                      <span>
-                        {`${key[0].split('_').join(' ').toUpperCase()}:`}
+                      <span className="capitalize">
+                        {`${key[0].split('_').join(' ')}:`}
                       </span>
                       <p>{key[1]}</p>
                     </li>
@@ -143,8 +143,9 @@ export default function CompanyInformation(props) {
       )}
       <form
         className="flex flex-col gap-y-8
-          md:flex-row md: bg-white py-10
-          pl-5 w-full border-2 rounded-md"
+          pl-5 w-full
+          py-10
+          md:flex-row"
         id="company-detail"
         onSubmit={handleSubmit}
       >
@@ -183,8 +184,8 @@ export default function CompanyInformation(props) {
               >
                 <MenuItem value="" disabled>Select Business Type</MenuItem>
                 <MenuItem value="NGO">NGO</MenuItem>
-                <MenuItem value="Hospital">Hospital</MenuItem>
-                <MenuItem value="Clinic">Clinic</MenuItem>
+                <MenuItem value="Sole Proprietorship">Sole Proprietorship</MenuItem>
+                <MenuItem value="Private Limited Company (PLC)">Private Limited Company (PLC)</MenuItem>
               </Select>
             </FormControl>
           </div>
@@ -213,7 +214,7 @@ export default function CompanyInformation(props) {
           <div className="flex flex-col gap-1 md:w-[90%]">
             <span className="text-gray-600">Trader Registration Document</span>
             <div className="flex w-full gap-3 items-center">
-              <input type="file" ref={tradeRegDocElt} name="tradeRegDoc" onChange={handleFileInput} accept="application/pdf, image/*" />
+              <input type="file" ref={tradeRegDocElt} name="tradeRegDoc" onChange={handleFileInput} accept="application/pdf, image/*" required />
               <IconButton aria-label="delete" size="large" onClick={() => resetInputFile(tradeRegDocElt)}>
                 <DeleteIcon fontSize="inherit" />
               </IconButton>
@@ -254,9 +255,9 @@ export default function CompanyInformation(props) {
                 required
               >
                 <MenuItem value="" disabled>Select Company Nature</MenuItem>
-                <MenuItem value="Manufacturer">Manufacturer</MenuItem>
-                <MenuItem value="Importer">Importer</MenuItem>
-                <MenuItem value="Wholesaler">Wholesaler</MenuItem>
+                <MenuItem value="Hospital">Hospital</MenuItem>
+                <MenuItem value="NGO">NGO</MenuItem>
+                <MenuItem value="Clinic">Clinic</MenuItem>
               </Select>
             </FormControl>
           </div>
@@ -321,7 +322,14 @@ export default function CompanyInformation(props) {
               </FormControl>
             )}
             {!isLocal && (
-              <TextField id="city" label="State" sx={{ width: 300 }} variant="outlined" required />
+              <TextField
+                id="city"
+                label="State"
+                sx={{ width: 300 }}
+                variant="outlined"
+                onChange={handleCityChange}
+                required
+              />
             )}
           </div>
           <div className="flex">
