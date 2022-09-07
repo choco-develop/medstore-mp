@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "https://medstore.debolx.com",
+  "engines": {
+    "node": ">=18.7.0",
+    "npm": ">=8.17.0"
+  },
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
