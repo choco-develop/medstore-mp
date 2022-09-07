@@ -23,7 +23,12 @@ const companyInfoReg = (data) => axios.post(
   `${API_URL}/accounts/user_comp_reg/`,
   data,
   { headers },
-).then((res) => Promise.resolve(res)).catch((err) => Promise.reject(err));
+).then((res) => Promise.resolve(res.data)).catch((err) => {
+  console.log({
+    err,
+  });
+  Promise.reject(err);
+});
 
 export default {
   getAuthUserDetail,
