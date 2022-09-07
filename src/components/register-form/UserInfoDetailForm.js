@@ -5,7 +5,6 @@ import React, {
 import {
   Box, TextField, Autocomplete, Alert, AlertTitle,
   InputLabel, MenuItem, Select, FormControl, FormHelperText,
-  Radio, RadioGroup, FormControlLabel, FormLabel,
 } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -43,8 +42,8 @@ const UserInfoDetailForm = (props) => {
         return response.json();
       })
       .then((actualData) => {
-        console.log(actualData);
         const { user_info: userInfo } = actualData;
+        setCountry(userInfo.country ? JSON.parse(userInfo.country) : null);
         setIdTypes(actualData.id_types);
         userInfo.city === 'Addis Ababa' ? setIsInAddis(true) : setIsInAddis(false); //eslint-disable-line
         setDBO(userInfo.dbo);
@@ -60,7 +59,7 @@ const UserInfoDetailForm = (props) => {
   const handleFromSubmit = (e) => {
     e.preventDefault();
     const allValues = {
-      country,
+      country: JSON.stringify(country),
       city,
       sub_city: subCity,
       dbo,
@@ -72,7 +71,9 @@ const UserInfoDetailForm = (props) => {
   };
 
   const handleCountryChange = (e, value) => {
-    console.log(value);
+    console.log({
+      country: value,
+    });
     setCountry(value);
     subCity === 'Addis Ababa' ? setIsInAddis(true) : setIsInAddis(false); //eslint-disable-line
     value.label === 'Ethiopia' ? setIsLocal(true) : setIsLocal(false); //eslint-disable-line
@@ -124,19 +125,6 @@ const UserInfoDetailForm = (props) => {
           </Alert>
         </div>
       )}
-      <div className="flex">
-        <FormControl>
-          <FormLabel id="demo-row-radio-buttons-group-label" className="mb-3">User Type</FormLabel>
-          <RadioGroup
-            row
-            aria-labelledby="demo-row-radio-buttons-group-label"
-            name="row-radio-buttons-group"
-          >
-            <FormControlLabel value="Individual" control={<Radio />} label="Individual" />
-            <FormControlLabel value="Company" control={<Radio />} label="Company" />
-          </RadioGroup>
-        </FormControl>
-      </div>
       <div className="flex">
         <Autocomplete
           id="country-select-demo"
@@ -249,12 +237,12 @@ const UserInfoDetailForm = (props) => {
       </div>
       <div className="flex flex-col gap-1">
         <span className="text-gray-600">ID Card</span>
-        <input type="file" onChange={idCardImageSelectHandler} accept="application/pdf, image/png, image/jpeg" className="w-1/3" />
+        <input type="file" onChange={idCardImageSelectHandler} accept="application/pdf, image/png, image/jpeg" className="w-1/3" required />
         <FormHelperText>Accepted inputs: image-png,jpg,jpeg PDF-pdf, docx</FormHelperText>
       </div>
       <div className="flex flex-col gap-1">
         <span className="text-gray-600">Profile Image</span>
-        <input type="file" onChange={profileImageSelectHandler} accept="application/pdf, image/png, image/jpeg" className="w-1/3" />
+        <input type="file" onChange={profileImageSelectHandler} accept="application/pdf, image/png, image/jpeg" className="w-1/3" required />
         <FormHelperText>Accepted inputs: image-png,jpg,jpeg PDF-pdf, docx</FormHelperText>
       </div>
     </form>
