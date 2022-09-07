@@ -13,6 +13,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Home from './components/Home';
 import navMenuContext from './contexts/navigationMenuContext';
 import store from './redux/store';
+import CompRegContextProvider from './contexts/CompRegContextProvider';
 
 function App() {
   const [search, setSearch] = useState('');
@@ -23,16 +24,18 @@ function App() {
         <Provider store={store}>
           <navMenuContext.Provider value={{ search, setSearch, navBar, setNavBar }}>
             <div className={navBar ? 'h-[100vh] overflow-hidden' : ''}>
-              <Router>
-                <Header />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="login" element={<LoginPage />} />
-                  <Route path="buyer/sign-up" element={<BuyerRegister />} />
-                  <Route path="buyer/account-activate" element={<BuyerActivate />} />
-                  <Route path="accounts/user-info-reg" element={<BuyerDetailData />} />
-                </Routes>
-              </Router>
+              <CompRegContextProvider>
+                <Router>
+                  <Header />
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="login" element={<LoginPage />} />
+                    <Route path="buyer/sign-up" element={<BuyerRegister />} />
+                    <Route path="buyer/account-activate" element={<BuyerActivate />} />
+                    <Route path="accounts/user-info-reg" element={<BuyerDetailData />} />
+                  </Routes>
+                </Router>
+              </CompRegContextProvider>
               <Footer />
             </div>
             <Outlet />
