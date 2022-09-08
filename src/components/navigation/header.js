@@ -100,8 +100,8 @@ export default function Header() {
                               placeholder:italic placeholder:text-white
                               bg-transparent border-none focus:ring-0"
                 />
-                <button type="button" className="rounded-md px-5 text-black sm:hidden">
-                  <MdSearch color="white" />
+                <button type="button" className="rounded-md px-5 text-black sm:hidden md:block">
+                  <MdSearch color="white" size={20} />
                 </button>
               </div>
             </li>
