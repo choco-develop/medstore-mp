@@ -30,8 +30,14 @@ const companyInfoReg = (data) => axios.post(
   Promise.reject(err);
 });
 
+const getCompanyInfo = () => axios.get(
+  `${API_URL}/accounts/user_comp_reg/`,
+  { headers },
+).then((res) => Promise.resolve(res.data)).catch((err) => Promise.reject(err));
+
 export default {
   getAuthUserDetail,
   userInfoReg,
   companyInfoReg,
+  getCompanyInfo,
 };

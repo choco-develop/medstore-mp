@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import { matchIsValidTel } from 'mui-tel-input';
 import UserInfoDetailForm from '../../components/register-form/UserInfoDetailForm';
 import CompanyInformation from '../../components/register-form/CompanyInformation';
+import ServicePlan from '../../components/register-form/ServicePlan';
 import userInforDetail from '../../redux/actions/user_info';
 import userService from '../../services/user-service';
 import { USER_INFO_REG_REQUEST } from '../../redux/actions/type';
@@ -26,7 +27,7 @@ export default function BuyerDetailData() {
       loading: companyLoading,
     },
   } = useContext(CompanyContext);
-  const formList = ['company-detail', 'user-detail'];
+  const formList = ['company-detail', 'user-detail', ''];
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ export default function BuyerDetailData() {
   } = useSelector((state) => state.userInfo);
   const { isLoggedIn } = useSelector((state) => state.auth);
 
-  const isStepOptional = (step) => step === 1;
+  const isStepOptional = (step) => step === 2;
 
   const isStepSkipped = (step) => skipped.has(step);
 
@@ -121,6 +122,12 @@ export default function BuyerDetailData() {
     setActiveStep(0);
   };
 
+  const handleNext = () => {
+    if (activeStep === 2) {
+      navigate('/');
+    }
+  };
+
   return (
     <section className="my-10 mx-1 py-5 px-3 sm:mx-10">
       <Box sx={{ width: '100%' }}>
@@ -162,6 +169,9 @@ export default function BuyerDetailData() {
               {activeStep === 1 && (
                 <UserInfoDetailForm submitUserInfo={submitUserInfo} />
               )}
+              {activeStep === 2 && (
+                <ServicePlan />
+              )}
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
               <Button
@@ -173,13 +183,13 @@ export default function BuyerDetailData() {
                 Back
               </Button>
               <Box sx={{ flex: '1 1 auto' }} />
-              {isStepOptional(activeStep) && (
+              {isStepOptional(activeStep) && activeStep !== steps.length - 1 && (
                 <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
                   Skip
                 </Button>
               )}
 
-              <Button disabled={loading || companyLoading} form={formList[activeStep]} type="submit">
+              <Button disabled={loading || companyLoading} form={formList[activeStep]} type="submit" onClick={handleNext}>
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
             </Box>

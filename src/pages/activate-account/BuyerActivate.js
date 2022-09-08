@@ -31,7 +31,7 @@ export default function BuyerActivate() {
           setHasError(true);
           setErrorMessage(res.data.msg);
         } else {
-          navigate('/accounts/user_info_reg');
+          navigate('/accounts/user-info-reg');
         }
       },
     )
@@ -43,7 +43,7 @@ export default function BuyerActivate() {
   };
 
   return (
-    <section className="flex justify-center h-[50vh] my-8 mx-3">
+    <section className="flex justify-center items-center h-[50vh] my-8 mx-3">
       <form
         className="flex flex-col gap-3 border
                 rounded-2xl border-main bg-white
@@ -51,14 +51,13 @@ export default function BuyerActivate() {
         onSubmit={handleActivation}
       >
         <div>
-          <p className="font-serif italic text-gray-600">
+          <p className="font-serif italic text-gray-600 text-xl">
             We have sent you an email with Activation code here:
-            <span className="text-blue-500">{` ${userEmail}`}</span>
-            . Please fill out here
+            <span className="text-main text-lg italic">{` ${userEmail}`}</span>
           </p>
         </div>
         <div className="flex self-center">
-          <label htmlFor="code" className="flex flex-col">
+          <label htmlFor="code" className="flex items-center">
             <span className="leading-10 font-serif text-gray-600">
               Activation Code:
             </span>
@@ -66,11 +65,12 @@ export default function BuyerActivate() {
               type="text"
               id="code"
               name="code"
-              className={`border-2 p-3 rounded-lg
-                      leading-10 text-center
+              className={`border-2 rounded-lg
+                      leading-10
                       placeholder:tracking-widest
                       focus:border-main focus:ring-0
                       flex space-x-28
+                      text-2xl text-gray-500
                       ${hasError ? 'border-red-400' : 'border-main'}`}
               placeholder="__ __ __ __ __"
               onChange={(e) => setCode(e.target.value)}
