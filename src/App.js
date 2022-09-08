@@ -22,24 +22,23 @@ function App() {
   return (
       <>
         <Provider store={store}>
-          <navMenuContext.Provider value={{ search, setSearch, navBar, setNavBar }}>
-            <div className={navBar ? 'h-[100vh] overflow-hidden' : ''}>
+          <Router>
+            <navMenuContext.Provider value={{ search, setSearch, navBar, setNavBar }}>
               <CompRegContextProvider>
-                <Router>
-                  <Header />
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="login" element={<LoginPage />} />
-                    <Route path="buyer/sign-up" element={<BuyerRegister />} />
-                    <Route path="buyer/account-activate" element={<BuyerActivate />} />
-                    <Route path="accounts/user-info-reg" element={<BuyerDetailData />} />
-                  </Routes>
-                </Router>
+                <div className={navBar ? 'h-[100vh] overflow-hidden' : ''}>
+                      <Header />
+                      <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="login" element={<LoginPage />} />
+                        <Route path="buyer/sign-up" element={<BuyerRegister />} />
+                        <Route path="buyer/account-activate" element={<BuyerActivate />} />
+                        <Route path="accounts/user-info-reg" element={<BuyerDetailData />} />
+                      </Routes>
+                  <Footer />
+                </div>
               </CompRegContextProvider>
-              <Footer />
-            </div>
-            <Outlet />
-          </navMenuContext.Provider>
+            </navMenuContext.Provider>
+          </Router>
         </Provider>
       </>
   );
