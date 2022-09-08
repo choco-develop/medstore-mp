@@ -7,8 +7,7 @@ export default function sampleProducts() {
     <>
       <div
         id="topProducts"
-        className="flex flex-col p-2 border
-                my-5 shadow-sm px-5 bg-white py-5"
+        className="flex flex-col py-5 px-3 border my-5 shadow-sm bg-white"
       >
         <div className="mb-3">
           <div className="relative flex py-5 items-center">
@@ -25,7 +24,7 @@ export default function sampleProducts() {
           { TopProducts }
         </div>
       </div>
-      <div id="recentProducts" className="flex flex-col p-5 border my-5 shadow-sm bg-white">
+      <div id="recentProducts" className="flex flex-col py-5 px-2 border my-5 shadow-sm bg-white">
         <div className="mb-3">
           <div className="relative flex py-5 items-center">
             <div className="grow w-[2%] border" />
