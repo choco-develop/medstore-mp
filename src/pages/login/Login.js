@@ -1,6 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import {
+  TextField, Checkbox, FormControlLabel,
+} from '@mui/material';
 import { login } from '../../redux/actions/auth';
 import AuthFooter from '../../components/AuthFooter';
 
@@ -64,47 +67,35 @@ export default function Login(props) {
               </ul>
             )
           }
-          <div className="flex flex-col">
-            <label htmlFor="email" className="flex flex-col">
-              <span className="leading-10 font-serif text-gray-600">Email</span>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                className="border-2 border-main p-3 rounded-lg
-                          placeholder:italic
-                          focus:border-main focus:ring-0"
-                placeholder="Enter your username here..."
-                onChange={onChangeUsername}
-                required
-                autoFocus //eslint-disable-line
-              />
-            </label>
+          <div className="flex flex-col items-center">
+            <TextField
+              id="emailID"
+              label="Email"
+              variant="outlined"
+              className="w-3/4"
+              value={username}
+              onChange={onChangeUsername}
+            />
           </div>
-          <div className="flex flex-col">
-            <label htmlFor="password" className="flex flex-col">
-              <span className="leading-10 font-serif text-gray-600">Password</span>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className="border-2 border-main p-3 rounded-lg
-                          placeholder:italic
-                          focus:border-main focus:ring-0"
-                placeholder="Enter your password here..."
-                onChange={onChangePassword}
-                required
-              />
-            </label>
+          <div className="flex justify-center">
+            <TextField
+              id="password"
+              type="password"
+              label="Password"
+              value={password}
+              onChange={onChangePassword}
+              className="w-3/4"
+            />
           </div>
-          <div className="flex justify-start items-center gap-2">
-            <input type="checkbox" name="rememeber" className="border border-main checked:bg-main" />
-            <span className="font-serif text-gray-600">Rememeber me?</span>
+          <div className="flex justify-center items-center gap-2">
+            <div className="w-3/4">
+              <FormControlLabel control={<Checkbox />} label="Remember me" />
+            </div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex justify-center">
             <input
               type="submit"
-              className={`text-center text-white py-3 font-medium ${loading ? 'bg-busy' : 'bg-main'}`}
+              className={`text-center w-3/4 text-white py-3 font-medium ${loading ? 'bg-busy' : 'bg-main'}`}
               value="LOGIN"
               required
               disabled={loading}
