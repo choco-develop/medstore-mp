@@ -5,7 +5,7 @@ export const CompanyContext = createContext();
 
 function CompRegContextProvider({ children}) { //eslint-disable-line
   const [values, setValues] = useState({
-    message: { err: false, msg: null, form_errors: [] },
+    message: { err: false, msg: null, form_errors: {} },
     loading: false,
   });
 
