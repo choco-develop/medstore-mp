@@ -4,12 +4,12 @@ const NewsArticleComponent = NewsArticleList.map((value) => (
 
   <li
     className="grid grid-rows-7 bg-gray-100
-            gap-4 border hover:shadow-2xl
+            gap-4 border hover:shadow-2xl hover:border-busy
             xs:w-screen
             sm:basis-1/2
-            md:basis-1/3 md:max-w-[270px] md:border-1 md:border-main
-            lg:basis-1/3
-            xl:min-w-[350px]"
+            md:basis-1/3 md:max-w-[270px] md:border-1 md:border-gray-300
+            lg:basis-1/3 lg:min-w-[400px]
+            2xl:min-w-[450px]"
     key={value.title}
   >
     <div className="row-span-4">
