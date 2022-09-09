@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick';
+import { Link } from 'react-router-dom';
 import { SamplePrevArrow, SampleNextArrow } from './slider-slick';
 import CatList from './category-list';
 
@@ -7,7 +8,8 @@ export default function category() {
   const catMax = [];
   for (let i = 0; i < CatList.length; i += 1) {
     catMax.push(
-      <div
+      <Link
+        to="market-place"
         className="border flex flex-col
                       hover:shadow-b-md z-0
                       xs:h-40"
@@ -23,7 +25,7 @@ export default function category() {
             </div>
           </div>
         </div>
-      </div>,
+      </Link>,
     );
   }
 
