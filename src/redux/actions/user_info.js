@@ -54,7 +54,7 @@ export const companyInfo = (data) => (dispatch) => userService.companyInfoReg(da
       dispatch({
         type: COMPANY_INFO_REG_FAILER,
         payload: res.data,
-      })
+      });
     }
     return Promise.resolve(res);
   },
@@ -73,6 +73,5 @@ export const companyInfo = (data) => (dispatch) => userService.companyInfoReg(da
     return Promise.reject(err);
   },
 );
-
 
 export default userInforDetail;

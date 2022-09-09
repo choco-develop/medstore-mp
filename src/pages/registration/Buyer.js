@@ -51,21 +51,28 @@ export default function Buyer() {
     const { data, isError } = message;
     if (data && isError) {
       return (
-        Object.entries(data).map(([key, val]) => (
-          <li key={key} className="pl-3 flex gap-1">
-            <span className="capitalize">{`${key.split('_').join(' ')}:`}</span>
-            <i>{val}</i>
-          </li>
-        ))
+        <ul className="flex flex-col px-3 list-disc list-inside justify-center">
+          { Object.entries(data).map(([key, val]) => (
+            <li key={key} className="pl-3 flex gap-1">
+              <span className="capitalize">{`${key.split('_').join(' ')}:`}</span>
+              <i>{val}</i>
+            </li>
+          ))}
+        </ul>
       );
     } else if (data.err) {  //eslint-disable-line
       return (
-        Object.entries(data.msg).map(([key, val]) => (
-          <li key={key} className="pl-3 flex flex-wrap gap-1">
-            <span className="capitalize font-medium">{`${key.split('_').join(' ')}:`}</span>
-            <i>{val}</i>
-          </li>
-        ))
+        <ul className="flex flex-col px-3 list-disc list-inside justify-center">
+          <li>hay</li>
+          {
+            Object.entries(data.msg).map(([key, val]) => (
+              <li key={key} className="pl-3 flex flex-wrap gap-1">
+                <span className="capitalize font-medium">{`${key.split('_').join(' ')}:`}</span>
+                <i>{val}</i>
+              </li>
+            ))
+          }
+        </ul>
       );
     }
     return (
@@ -87,24 +94,29 @@ export default function Buyer() {
               my-6 mx-1 pt-2 px-2
               gap-3
               sm:my-16 sm:mx-16 sm:pt-4 sm:px-4
-              md:justify-start md:mx-2"
+              md:justify-start md:mx-10 md:gap-0"
     >
-      <div className="hidden md:flex md:bg-main md:basis-1/2 rounded-r-3xl justify-center items-center flex-col">
-        <h1 className="text-white text-2xl font-bold font-serif">Welcome to Medstore.et Marketplace</h1>
-        <p className="text-md text-white font-serif">Register and have free access</p>
+      <div
+        className="hidden md:flex justify-center items-center
+                  bg-no-repeat bg-contain bg-top
+                  flex-col gap-7 bg-[url('../public/assets/ms-banner.jpg')]
+                  border-2 border-main
+                  md:basis-1/2"
+      >
+        <h1 className="text-white text-2xl font-bold font-serif">Welcome Back</h1>
+        <p className="text-md text-white text-center font-serif w-3/4">To keep connected with us please login with your personal info</p>
       </div>
       <div
         className="flex flex-col bg-white w-full
-              rounded-2xl border border-main
               md:w-[90%]
               lg:w-3/4
               xl:w-[100%]"
       >
         <div className="text-center pt-5">
-          <h1 className="font-serif text-2xl leading-10 font-medium text-main">Create Your Free Account</h1>
+          <h2 className="font-serif text-2xl leading-10 font-medium text-main">Create Account</h2>
         </div>
         <form
-          className="flex flex-col gap-5 p-3 md:mx-auto md:w-[80%] xl:w-[60%]"
+          className="flex flex-col gap-5 p-3 md:mx-auto md:w-[80%] xl:w-3/4"
           type="multipart/form-data"
           onSubmit={handleRegister}
           ref={form}
@@ -112,10 +124,10 @@ export default function Buyer() {
           {
             message && (
               <Alert variant="standard" severity="error">
-                <AlertTitle>There is an error alert — check it out!</AlertTitle>
-                <ul className="flex flex-col px-3 list-inside justify-center list-decimal">
-                  <ErrorMessage />
-                </ul>
+                <AlertTitle>Error — check it out!</AlertTitle>
+                {/* <ul className="flex flex-col px-3 list-disc list-inside justify-center"> */}
+                <ErrorMessage />
+                {/* </ul> */}
               </Alert>
             )
           }

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import {
   TextField, Checkbox, FormControlLabel,
+  Alert, AlertTitle,
 } from '@mui/material';
 import { login } from '../../redux/actions/auth';
 import AuthFooter from '../../components/AuthFooter';
@@ -55,16 +56,19 @@ export default function Login(props) {
           </div>
           {
             message && (
-              <ul
-                className="flex flex-col px-3 list-disc
-                          list-inside text-red-500
-                          justify-center
-                          xs:text-sm md:text-md"
-              >
-                <li className="">
-                  <span className="text-red-500">{message}</span>
-                </li>
-              </ul>
+              <Alert variant="standard" severity="error" className="w-full sm:w-3/4 self-center">
+                <AlertTitle>Error Occured</AlertTitle>
+                <ul
+                  className="flex flex-col px-3 list-disc
+                            list-inside
+                            justify-center
+                            xs:text-sm md:text-md"
+                >
+                  <li className="">
+                    <span className="">{message}</span>
+                  </li>
+                </ul>
+              </Alert>
             )
           }
           <div className="flex flex-col items-center">
@@ -72,7 +76,7 @@ export default function Login(props) {
               id="emailID"
               label="Email"
               variant="outlined"
-              className="w-3/4"
+              className="w-full sm:w-3/4"
               value={username}
               onChange={onChangeUsername}
             />
@@ -84,18 +88,18 @@ export default function Login(props) {
               label="Password"
               value={password}
               onChange={onChangePassword}
-              className="w-3/4"
+              className="w-full sm:w-3/4"
             />
           </div>
           <div className="flex justify-center items-center gap-2">
-            <div className="w-3/4">
+            <div className="w-full sm:w-3/4">
               <FormControlLabel control={<Checkbox />} label="Remember me" />
             </div>
           </div>
           <div className="flex justify-center">
             <input
               type="submit"
-              className={`text-center w-3/4 text-white py-3 font-medium ${loading ? 'bg-busy' : 'bg-main'}`}
+              className={`text-center w-full sm:w-3/4 text-white py-3 font-medium ${loading ? 'bg-busy' : 'bg-main'}`}
               value="LOGIN"
               required
               disabled={loading}
