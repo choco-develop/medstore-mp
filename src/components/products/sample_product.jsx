@@ -16,13 +16,13 @@ export default function sampleProducts() {
             <div className="grow w-[83%] border" />
           </div>
         </div>
-        <div className="flex gap-3
+        <ul className="flex gap-3 justify-center
                       xs:flex-row xs:flex-wrap xs:gap-0 xs:gap-y-2
                       sm:flex-row sm:flex-wrap sm:gap-0
                       md:flex-row md:justify-between"
         >
-          { TopProducts }
-        </div>
+          <TopProducts />
+        </ul>
       </div>
       <div id="recentProducts" className="flex flex-col py-5 px-2 border my-5 shadow-sm bg-white">
         <div className="mb-3">
