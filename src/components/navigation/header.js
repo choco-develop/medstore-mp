@@ -3,6 +3,9 @@ import { MdSearch, MdLogin, MdLogout } from 'react-icons/md';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {
+  InputBase,
+} from '@mui/material';
 import { logout } from '../../redux/actions/auth';
 import MainLogo from '../../assets/images/Logo-New.png';
 import MobileNav from './mobile-nav';
@@ -48,7 +51,7 @@ export default function Header() {
 
   return (
     <nav className="flex flex-col w-full relative">
-      <div className="flex justify-between p-2 mini-nav content-center bg-top">
+      <div className="flex justify-between p-2 mini-nav content-center bg-[#364954]">
         <div>
           <p className="font-serif font-sm italic">Ethiopian Medical Material Portal</p>
         </div>
@@ -88,20 +91,15 @@ export default function Header() {
             <li className="xs:hidden md:block">
               <div
                 className="flex"
-                style={{ backgroundColor: '#2f6e7021' }}
               >
-                <input
-                  type="text"
+                <InputBase
                   placeholder="Search here..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full py-3 pl-5 pr-4 outline-none
-                              focus:border-transparent italic
-                              placeholder:italic placeholder:text-white
-                              bg-transparent border-none focus:ring-0"
+                  className="bg-white px-5 pt-1 rounded-l-md"
                 />
-                <button type="button" className="rounded-md px-5 text-black sm:hidden md:block">
-                  <MdSearch color="white" size={20} />
+                <button type="button" className="rounded-r-md border-l-2 px-5 text-black sm:hidden md:block bg-white">
+                  <MdSearch color="black" size={20} />
                 </button>
               </div>
             </li>
