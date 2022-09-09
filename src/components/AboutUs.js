@@ -12,11 +12,11 @@ export default function AboutUs() {
         what is medstore?
       </h1>
       <hr className="mb-3" />
-      <div className="grid grid-cols-5 mt-5 gap-5 sm:grid-cols-3 lg:gap-0">
+      <div className="grid grid-cols-5 mt-5 gap-5 sm:grid-cols-4 lg:gap-0">
         <div className="col-span-1 xs:hidden sm:flex sm:col-span-1 sm:content-center">
           <img src={AboutImage} alt="company" className="object-contain" />
         </div>
-        <div className="col-span-4 ml-10 xs:col-span-5 sm:col-span-2">
+        <div className="col-span-5 ml-10 sm:col-span-3">
           <img
             src={AboutImage}
             alt="..."
