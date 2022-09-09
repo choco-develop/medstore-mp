@@ -88,7 +88,7 @@ export default function CustomizedTreeView() {
   return (
     <TreeView
       aria-label="customized"
-      defaultExpanded={['1', '11']}
+      defaultExpanded={[]}
       defaultCollapseIcon={<MinusSquare />}
       defaultExpandIcon={<PlusSquare />}
       defaultEndIcon={<Checkbox />}

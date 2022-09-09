@@ -313,6 +313,7 @@ export default function CompanyInformation(props) {
                 required
               >
                 <MenuItem value="" disabled>Select Company Nature</MenuItem>
+                <MenuItem value="Hospital">Hospital</MenuItem>
                 {companyNatures && companyNatures.length && companyNatures.map((value) => (
                   <MenuItem value={value[0]} key={value[0]}>{value[0]}</MenuItem>
                 ))}

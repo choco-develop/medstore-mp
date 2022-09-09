@@ -15,7 +15,7 @@ import Home from './components/Home';
 import navMenuContext from './contexts/navigationMenuContext';
 import store from './redux/store';
 import CompRegContextProvider from './contexts/CompRegContextProvider';
-import "@fontsource/roboto";
+//import "@fontsource/roboto";
 
 function App() {
   const [search, setSearch] = useState('');

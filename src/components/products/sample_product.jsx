@@ -19,7 +19,7 @@ export default function sampleProducts() {
         <ul className="flex gap-3 justify-center
                       xs:flex-row xs:flex-wrap xs:gap-0 xs:gap-y-2
                       sm:flex-row sm:flex-wrap sm:gap-0
-                      md:flex-row md:justify-between"
+                      md:flex-row md:justify-start"
         >
           <TopProducts />
         </ul>
