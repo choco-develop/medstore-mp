@@ -8,12 +8,14 @@ import LoginPage from './pages/login/Login'
 import BuyerRegister from './pages/registration/Buyer';
 import BuyerDetailData from './pages/registration/BuyerDetailData'
 import BuyerActivate from './pages/activate-account/BuyerActivate';
+import MPIndex from './pages/mp/index';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Home from './components/Home';
 import navMenuContext from './contexts/navigationMenuContext';
 import store from './redux/store';
 import CompRegContextProvider from './contexts/CompRegContextProvider';
+import "@fontsource/roboto";
 
 function App() {
   const [search, setSearch] = useState('');
@@ -33,6 +35,7 @@ function App() {
                         <Route path="buyer/sign-up" element={<BuyerRegister />} />
                         <Route path="buyer/account-activate" element={<BuyerActivate />} />
                         <Route path="accounts/user-info-reg" element={<BuyerDetailData />} />
+                        <Route path="market-place" element={<MPIndex />} />
                       </Routes>
                   <Footer />
                 </div>
