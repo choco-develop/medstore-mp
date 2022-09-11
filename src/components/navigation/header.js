@@ -1,3 +1,4 @@
+// eslint-disable
 import React, { useCallback, useContext } from 'react';
 import { MdSearch, MdLogin, MdLogout } from 'react-icons/md';
 import { GiHamburgerMenu } from 'react-icons/gi';
@@ -51,15 +52,16 @@ export default function Header() {
 
   return (
     <nav className="flex flex-col w-full relative">
-      <div className="flex justify-between p-2 mini-nav content-center bg-[#364954]">
-        <div>
-          <p className="font-serif font-sm italic">Ethiopian Medical Material Portal</p>
+      <div className="flex justify-between p-1 mini-nav content-center bg-[#060E33]">
+        <div className="flex flex-col sm:flex-row sm:gap-1">
+          <p className="font-serif italic">Ethiopian Medical Equipment</p>
+          <p> Digital Marketplace</p>
         </div>
         <div className="flex items-center pr-0 md:pr-2 ">
-          <a href="http://localhost:8000" className="font-serif">Seller Portal</a>
+          <a href="http://localhost:8000" className="font-serif pr-2">Seller Portal</a>
         </div>
       </div>
-      <div className="flex p-2 flex-wrap gap-y-2 bg-main">
+      <div className="flex p-2 flex-wrap gap-y-2 bg-main py-3">
         <Link to="/" className="flex gap-2">
           <div
             className="flex relative w-[55px]
@@ -96,10 +98,10 @@ export default function Header() {
                   placeholder="Search here..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="bg-white px-5 pt-1 rounded-l-md"
+                  className="bg-white px-5 pt-0 rounded-l-md h-[30px]"
                 />
                 <button type="button" className="rounded-r-md border-l-2 px-5 text-black sm:hidden md:block bg-white">
-                  <MdSearch color="black" size={20} />
+                  <MdSearch className="text-main" size={20} />
                 </button>
               </div>
             </li>
