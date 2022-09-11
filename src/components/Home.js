@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Slider />
-      <div className="xl:mx-20 2xl:mx-32">
+      <div className="xl:mx-5 2xl:mx-32">
         <Category />
         <SampleProduct />
         <NewsArticle />

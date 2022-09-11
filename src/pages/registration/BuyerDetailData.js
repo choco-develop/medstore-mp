@@ -17,7 +17,7 @@ import userService from '../../services/user-service';
 import { USER_INFO_REG_REQUEST } from '../../redux/actions/type';
 import { CompanyContext } from '../../contexts/CompRegContextProvider';
 
-const steps = ['User Information', 'Company Information', 'Payment Method'];
+const steps = ['Company Information', 'User Information', 'Payment Method'];
 
 export default function BuyerDetailData() {
   const {

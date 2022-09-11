@@ -73,7 +73,7 @@ export default function footer() {
           </div>
         </div>
       </div>
-      <div className="px-3 py-5 border-1 border-white flex items-center justify-between gap-3 bg-[#3d82bc]">
+      <div className="px-3 py-1 border-1 border-white flex items-center justify-between gap-3 bg-[#060E33]">
         <span className="text-sm sm:text-center">
           <a href="http://localhost" className="ml-1 hover:underline">Medstore Trading PLC™</a>
           © 2022
